@@ -13,7 +13,7 @@ SECRET_KEY = 'django-insecure-munjtrz7gc00m!%6zybrty))!wgk=lrn2tkrzxg&f19u9%hdss
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['127.0.0.1']
 
 
 # Application definition
@@ -34,6 +34,7 @@ INSTALLED_APPS = [
     'allauth.socialaccount',
     'allauth.socialaccount.providers.google',
     'allauth.socialaccount.providers.facebook',
+    'django_extensions'
 ]
 
 MIDDLEWARE = [
@@ -72,8 +73,12 @@ WSGI_APPLICATION = 'tradelaa.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': 'tradelaa',
+        'USER':'postgres',
+        'PASSWORD':'#1qwerty',
+        'HOST':'localhost',
+        'PORT':'5432'
     }
 }
 

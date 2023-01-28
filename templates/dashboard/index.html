@@ -36,8 +36,8 @@
                   <div class="d-flex align-items-center"><img src="{% static 'assets/img/icons/illustrations/4l.png' %}" alt=""
                       height="46" width="46" />
                     <div class="ms-3">
-                      <h4 class="mb-0">57 Target Hits</h4>
-                      <p class="text-800 fs--1 mb-0">Awating processing</p>
+                      <h4 class="mb-0">{{data.target_count}} Target Hits</h4>
+                      <!-- <p class="text-800 fs--1 mb-0">Awating processing</p> -->
                     </div>
                   </div>
                 </div>
@@ -54,8 +54,8 @@
                   <div class="d-flex align-items-center"><img src="{% static 'assets/img/icons/illustrations/2l.png' %}" alt=""
                       height="46" width="46" />
                     <div class="ms-3">
-                      <h4 class="mb-0">15 Stop Loss Hits</h4>
-                      <p class="text-800 fs--1 mb-0">Out of stock</p>
+                      <h4 class="mb-0">{{data.sl_count}} Stop Loss Hits</h4>
+                      <!-- <p class="text-800 fs--1 mb-0">Out of stock</p> -->
                     </div>
                   </div>
                 </div>
@@ -90,10 +90,10 @@
                                 class="badge-label">+26.5%</span></span></h5>
                           <h6 class="text-700">Last 7 days</h6>
                         </div>
-                        <h4>356</h4>
+                        <h4>{{data.target_count}}</h4>
                       </div>
                       <div class="pb-0 pt-4">
-                        <div class="echarts-new-customers" style="height:180px;width:100%;"
+                        <div id="target-hit-chart" class="target-hit-chart" style="height:250px;width:100%;"
                           data-echart-responsive="true"></div>
                       </div>
                     </div>
@@ -371,6 +371,9 @@
   {% include 'dashboard/common_js.html' %}
   {% block common_js %}
   {% endblock %}
+
+  <script src="{% static 'assets/js/dashboard/basic_charts.js' %}"></script>
+  
 </body>
 
 </html>

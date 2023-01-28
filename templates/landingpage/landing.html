@@ -47,10 +47,52 @@
   <!--    Main Content-->
   <!-- ===============================================-->
   <main class="main" id="top">
+    <!--Trading view Chart-->
+    <section style="padding: 0;">
+      <!-- TradingView Widget BEGIN -->
+      <div class="tradingview-widget-container">
+        <div class="tradingview-widget-container__widget"></div>
+        <script type="text/javascript" src="https://s3.tradingview.com/external-embedding/embed-widget-ticker-tape.js"
+          async>
+            {
+              "symbols": [
+                {
+                  "proName": "FOREXCOM:SPXUSD",
+                  "title": "S&P 500"
+                },
+                {
+                  "proName": "FOREXCOM:NSXUSD",
+                  "title": "US 100"
+                },
+                {
+                  "proName": "FX_IDC:EURUSD",
+                  "title": "EUR/USD"
+                },
+                {
+                  "proName": "BITSTAMP:BTCUSD",
+                  "title": "Bitcoin"
+                },
+                {
+                  "proName": "BITSTAMP:ETHUSD",
+                  "title": "Ethereum"
+                }
+              ],
+                "showSymbolLogo": true,
+                  "colorTheme": "dark",
+                    "isTransparent": false,
+                      "displayMode": "adaptive",
+                        "locale": "in"
+            }
+          </script>
+      </div>
+      <!-- TradingView Widget END -->
+    </section>
+    <!-- Trading iew chart end-->
+
     <nav class="navbar bg-white navbar-expand-lg sticky-top">
       <div class="container-small px-0 px-sm-3"><a class="navbar-brand flex-1 flex-lg-grow-0" href="index-2.html">
-          <div class="d-flex align-items-center"><img src="{% static 'assets/img/icons/logo-second.png' %}" alt="phoenix"
-              width="27" />
+          <div class="d-flex align-items-center"><img src="{% static 'assets/img/icons/logo-second.png' %}"
+              alt="phoenix" width="27" />
             <p class="logo-text ms-2">TradeLaa</p>
           </div>
         </a>
@@ -97,8 +139,22 @@
                   class="mb-0 theme-control-toggle-label theme-control-toggle-dark" for="themeControlToggle"
                   data-bs-toggle="tooltip" data-bs-placement="left" title="Switch theme"><span class="icon"
                     data-feather="sun"></span></label></div>
-            </li><button class="btn btn-link text-900 order-1 order-lg-0" type="button">Sign in</button><button
-              class="btn btn-phoenix-primary order-0" type="submit"><span class="fw-bold">Sign Up</span></button>
+            </li>
+            {% if request.user.is_authenticated %}
+            <button class="btn btn-phoenix-primary order-0" type="button">
+              <a href="{% url 'dashboard:dashboard' %}">Dashboard</a>
+            </button>
+            {% else %}
+            <button class="btn btn-link text-900 order-1 order-lg-0" type="button">
+              <a href="{% url 'accounts:account_login' %}">Sign in</a>
+            </button>
+            {% endif %}
+
+            {% if not request.user.is_authenticated %}
+            <button class="btn btn-phoenix-primary order-0" type="submit">
+              <span class="fw-bold">Sign Up</span>
+            </button>
+            {% endif %}
           </div>
         </div>
       </div>
@@ -112,16 +168,18 @@
               </div>
               <!--/.bg-holder-->
               <div class="position-relative"><img class="w-100 shadow-lg d-dark-none rounded-2"
-                  src="{% static 'assets/img/bg/bg-31.png' %}" alt="hero-header" /><img class="w-100 shadow-lg d-light-none rounded-2"
-                  src="{% static 'assets/img/bg/bg-30.png' %}" alt="hero-header" /></div>
+                  src="{% static 'assets/img/bg/bg-31.png' %}" alt="hero-header" /><img
+                  class="w-100 shadow-lg d-light-none rounded-2" src="{% static 'assets/img/bg/bg-30.png' %}"
+                  alt="hero-header" /></div>
             </div>
             <div class="hero-image-container position-absolute top-0 bottom-0 end-0 d-none d-lg-block">
               <div class="position-relative h-100 w-100">
                 <div class="position-absolute h-100 top-0 d-flex align-items-center end-0" style="left:-23%;"><img
                     class="pt-7 pt-md-0 w-100" src="{% static 'assets/img/bg/bg-1-2.png' %}" alt="hero-header" /></div>
                 <div class="position-absolute h-100 top-0 d-flex align-items-center end-0"><img
-                    class="pt-7 pt-md-0 w-100 shadow-lg d-dark-none rounded-2" src="{% static 'assets/img/bg/bg-28.png' %}"
-                    alt="hero-header" /><img class="pt-7 pt-md-0 w-100 shadow-lg d-light-none rounded-2"
+                    class="pt-7 pt-md-0 w-100 shadow-lg d-dark-none rounded-2"
+                    src="{% static 'assets/img/bg/bg-28.png' %}" alt="hero-header" /><img
+                    class="pt-7 pt-md-0 w-100 shadow-lg d-light-none rounded-2"
                     src="{% static 'assets/img/bg/bg-29.png' %}" alt="hero-header" /></div>
               </div>
             </div>
@@ -138,40 +196,48 @@
       </div>
     </section>
 
+
+
     <!-- ============================================-->
     <!-- <section> begin ============================-->
-    <section class="py-5 pt-xl-13 bg-white">
+    <!-- <section class="py-5 pt-xl-13 bg-white">
       <div class="container-small">
         <div class="row g-0">
           <div class="col-6 col-md-3">
             <div
               class="p-2 p-sm-5 p-md-2 p-lg-5 d-flex flex-center h-100 border-1 border-dashed border-bottom border-end">
-              <img class="w-100" src="{% static 'assets/img/brand2/netflix-n.png' %}" alt="" /></div>
+              <img class="w-100" src="{% static 'assets/img/brand2/netflix-n.png' %}" alt="" />
+            </div>
           </div>
           <div class="col-6 col-md-3">
             <div
               class="p-2 p-sm-5 p-md-2 p-lg-5 d-flex flex-center h-100 border-1 border-dashed border-bottom border-end-md">
-              <img class="w-100" src="{% static 'assets/img/brand2/blender.png' %}" alt="" /></div>
+              <img class="w-100" src="{% static 'assets/img/brand2/blender.png' %}" alt="" />
+            </div>
           </div>
           <div class="col-6 col-md-3">
             <div
               class="p-2 p-sm-5 p-md-2 p-lg-5 d-flex flex-center h-100 border-1 border-dashed border-bottom border-end border-end-md">
-              <img class="w-100" src="{% static 'assets/img/brand2/upwork.png' %}" alt="" /></div>
+              <img class="w-100" src="{% static 'assets/img/brand2/upwork.png' %}" alt="" />
+            </div>
           </div>
           <div class="col-6 col-md-3">
             <div
               class="p-2 p-sm-5 p-md-2 p-lg-5 d-flex flex-center h-100 border-1 border-dashed border-bottom border-end-lg-0">
-              <img class="w-100" src="{% static 'assets/img/brand2/facebook-f.png' %}" alt="" /></div>
+              <img class="w-100" src="{% static 'assets/img/brand2/facebook-f.png' %}" alt="" />
+            </div>
           </div>
           <div class="col-6 col-md-3">
             <div
               class="p-2 p-sm-5 p-md-2 p-lg-5 d-flex flex-center h-100 border-1 border-dashed border-end border-bottom border-bottom-md-0">
-              <img class="w-100" src="{% static 'assets/img/brand2/pocket.png' %}" alt="" /></div>
+              <img class="w-100" src="{% static 'assets/img/brand2/pocket.png' %}" alt="" />
+            </div>
           </div>
           <div class="col-6 col-md-3">
             <div
               class="p-2 p-sm-5 p-md-2 p-lg-5 d-flex flex-center h-100 border-1 border-dashed border-end-md border-bottom border-bottom-md-0">
-              <img class="w-100" src="{% static 'assets/img/brand2/mail-bluster-1.png' %}" alt="" /></div>
+              <img class="w-100" src="{% static 'assets/img/brand2/mail-bluster-1.png' %}" alt="" />
+            </div>
           </div>
           <div class="col-6 col-md-3">
             <div class="p-2 p-sm-5 p-md-2 p-lg-5 d-flex flex-center h-100 border-1 border-dashed border-end"><img
@@ -182,8 +248,9 @@
                 class="w-100" src="{% static 'assets/img/brand2/google-g.png' %}" alt="" /></div>
           </div>
         </div>
-      </div><!-- end of .container-->
-    </section><!-- <section> close ============================-->
+      </div>
+    </section> -->
+    <!-- <section> close ============================-->
     <!-- ============================================-->
 
 
@@ -233,7 +300,8 @@
           </div>
           <div class="row mt-12 align-items-center justify-content-between text-center text-lg-start">
             <div class="col-lg-5"><img class="img-fluid mb-9 mb-lg-0 d-dark-none"
-                src="{% static 'assets/img/spot-illustrations/22_2.png' %}" alt="" /><img class="img-fluid mb-9 mb-lg-0 d-light-none"
+                src="{% static 'assets/img/spot-illustrations/22_2.png' %}" alt="" /><img
+                class="img-fluid mb-9 mb-lg-0 d-light-none"
                 src="{% static 'assets/img/spot-illustrations/dark_22.png' %}" alt="" /></div>
             <div class="col-lg-6">
               <h6 class="text-primary mb-2 ls-2">SIGNAL</h6>
@@ -246,8 +314,8 @@
           <div class="row mt-2 align-items-center justify-content-between text-center text-lg-start">
             <div class="col-lg-5 order-0 order-lg-1"><img class="img-fluid mb-9 mb-lg-0 d-dark-none"
                 src="{% static 'assets/img/spot-illustrations/23_2.png' %}" height="394" alt="" /><img
-                class="img-fluid mb-9 mb-lg-0 d-light-none" src="{% static 'assets/img/spot-illustrations/dark_23.png' %}" height="394"
-                alt="" /></div>
+                class="img-fluid mb-9 mb-lg-0 d-light-none"
+                src="{% static 'assets/img/spot-illustrations/dark_23.png' %}" height="394" alt="" /></div>
             <div class="col-lg-6">
               <h6 class="text-primary mb-2 ls-2">SIGNAL</h6>
               <h3 class="fw-bolder mb-3">See Your Revenue Grow</h3>
@@ -259,8 +327,8 @@
           <div class="row mt-2 align-items-center justify-content-between text-center text-lg-start">
             <div class="col-lg-5"><img class="img-fluid mb-9 mb-lg-0 d-dark-none"
                 src="{% static 'assets/img/spot-illustrations/24_2.png' %}" height="394" alt="" /><img
-                class="img-fluid mb-9 mb-lg-0 d-light-none" src="{% static 'assets/img/spot-illustrations/dark_24.png' %}" height="394"
-                alt="" /></div>
+                class="img-fluid mb-9 mb-lg-0 d-light-none"
+                src="{% static 'assets/img/spot-illustrations/dark_24.png' %}" height="394" alt="" /></div>
             <div class="col-lg-6 text-center text-lg-start">
               <h6 class="text-primary mb-2 ls-2">SIGNAL</h6>
               <h3 class="fw-bolder mb-3">Get Reports Ready</h3>
@@ -280,7 +348,8 @@
         style="background-image:url(assets/img/bg/13.png);background-size:auto;background-position:right;"></div>
       <!--/.bg-holder-->
       <div class="bg-holder z-index-2 d-none d-md-block d-lg-none d-xl-block"
-        style="background-image:url({% static 'assets/img/bg/bg-12.png' %});background-size:auto;background-position:left;"></div>
+        style="background-image:url({% static 'assets/img/bg/bg-12.png' %});background-size:auto;background-position:left;">
+      </div>
       <!--/.bg-holder-->
       <div class="bottom-0 start-0 end-0 bg-white"><svg class="w-100 text-soft" viewBox="0 0 1920 368" fill="none"
           xmlns="http://www.w3.org/2000/svg">
@@ -305,10 +374,11 @@
                       <div class="col-lg-6 col-xl-5 text-center">
                         <div class="testimonial-avatar-container d-inline-block position-relative">
                           <div class="bg-holder"
-                            style="background-image:url({% static 'assets/img/bg/bg-2.png' %});background-size:contain;"></div>
+                            style="background-image:url({% static 'assets/img/bg/bg-2.png' %});background-size:contain;">
+                          </div>
                           <!--/.bg-holder-->
-                          <img class="rounded-3 mb-lg-0 opacity-100 position-relative" src="{% static 'assets/img/team/61.png' %}"
-                            width="153" height="153" alt="" />
+                          <img class="rounded-3 mb-lg-0 opacity-100 position-relative"
+                            src="{% static 'assets/img/team/61.png' %}" width="153" height="153" alt="" />
                         </div>
                       </div>
                       <div class="col-lg-6 col-xl-7 text-center text-lg-start">
@@ -327,10 +397,11 @@
                       <div class="col-lg-6 col-xl-5 text-center">
                         <div class="testimonial-avatar-container d-inline-block position-relative">
                           <div class="bg-holder"
-                            style="background-image:url({% static 'assets/img/bg/bg-2.png' %});background-size:contain;"></div>
+                            style="background-image:url({% static 'assets/img/bg/bg-2.png' %});background-size:contain;">
+                          </div>
                           <!--/.bg-holder-->
-                          <img class="rounded-3 mb-lg-0 opacity-100 position-relative" src="{% static 'assets/img/team/8.png' %}"
-                            width="154" alt="" />
+                          <img class="rounded-3 mb-lg-0 opacity-100 position-relative"
+                            src="{% static 'assets/img/team/8.png' %}" width="154" alt="" />
                         </div>
                       </div>
                       <div class="col-lg-6 col-xl-7 text-center text-lg-start">
@@ -349,10 +420,11 @@
                       <div class="col-lg-6 col-xl-5 text-center">
                         <div class="testimonial-avatar-container d-inline-block position-relative">
                           <div class="bg-holder"
-                            style="background-image:url({% static 'assets/img/bg/bg-2.png' %});background-size:contain;"></div>
+                            style="background-image:url({% static 'assets/img/bg/bg-2.png' %});background-size:contain;">
+                          </div>
                           <!--/.bg-holder-->
-                          <img class="rounded-3 mb-lg-0 opacity-100 position-relative" src="{% static 'assets/img/team/35.png' %}"
-                            width="154" alt="" />
+                          <img class="rounded-3 mb-lg-0 opacity-100 position-relative"
+                            src="{% static 'assets/img/team/35.png' %}" width="154" alt="" />
                         </div>
                       </div>
                       <div class="col-lg-6 col-xl-7 text-center text-lg-start">
@@ -381,7 +453,8 @@
       </div>
       <!--/.bg-holder-->
       <div class="bg-holder z-index-2 mt-9 opacity-25"
-        style="background-image:url({% static 'assets/img/bg/bg-left-21.png' %});background-size:auto;background-position:left;"></div>
+        style="background-image:url({% static 'assets/img/bg/bg-left-21.png' %});background-size:auto;background-position:left;">
+      </div>
       <!--/.bg-holder-->
       <svg class="w-100 text-white position-relative" preserveAspectRatio="none" viewBox="0 0 1920 368" fill="none"
         xmlns="http://www.w3.org/2000/svg">
@@ -433,14 +506,16 @@
       </svg>
     </div>
     <section class="bg-white">
-      <div class="bg-holder d-dark-none" style="background-image:url({% static 'assets/img/bg/bg-5.png' %});background-size:auto;">
+      <div class="bg-holder d-dark-none"
+        style="background-image:url({% static 'assets/img/bg/bg-5.png' %});background-size:auto;">
       </div>
       <!--/.bg-holder-->
       <div class="bg-holder d-light-none"
         style="background-image:url({% static 'assets/img/bg/bg-dark-5.png' %});background-size:auto;"></div>
       <!--/.bg-holder-->
       <div class="bg-holder"
-        style="background-image:url({% static 'assets/img/bg/bg-left-5.png' %});background-position:left;background-size:auto;"></div>
+        style="background-image:url({% static 'assets/img/bg/bg-left-5.png' %});background-position:left;background-size:auto;">
+      </div>
       <!--/.bg-holder-->
       <div class="bg-holder"
         style="background-image:url({% static 'assets/img/bg/bg-right-6.png' %});background-position:right;background-size:auto;">
@@ -505,7 +580,8 @@
     </section>
     <section class="bg-white">
       <div class="bg-holder d-none d-md-block"
-        style="background-image:url({% static 'assets/img/bg/bg-left-15.png' %});background-position:left;background-size:auto;"></div>
+        style="background-image:url({% static 'assets/img/bg/bg-left-15.png' %});background-position:left;background-size:auto;">
+      </div>
       <!--/.bg-holder-->
       <div class="bg-holder d-none d-md-block"
         style="background-image:url({% static 'assets/img/bg/bg-right-15.png' %});background-position:right;background-size:auto;">
@@ -532,8 +608,8 @@
             <div class="card h-100 rounded-xl-end-0 rounded-start">
               <div class="card-body px-6">
                 <div class="px-5">
-                  <div class="text-center pt-5"><img src="{% static 'assets/img/icons/illustrations/pie.png' %}" width="48" height="48"
-                      alt="" />
+                  <div class="text-center pt-5"><img src="{% static 'assets/img/icons/illustrations/pie.png' %}"
+                      width="48" height="48" alt="" />
                     <h3 class="fw-semi-bold my-4">Starter</h3>
                   </div>
                   <div class="text-center">
@@ -570,8 +646,8 @@
               </div>
               <div class="card-body px-6">
                 <div class="px-5">
-                  <div class="text-center pt-5"><img src="{% static 'assets/img/icons/illustrations/bolt.png' %}" width="48"
-                      height="48" alt="" />
+                  <div class="text-center pt-5"><img src="{% static 'assets/img/icons/illustrations/bolt.png' %}"
+                      width="48" height="48" alt="" />
                     <h3 class="fw-semi-bold my-4">Team</h3>
                   </div>
                   <div class="text-center">
@@ -603,8 +679,8 @@
             <div class="card h-100 rounded-start rounded-xl-start-0 mt-5 mt-md-0">
               <div class="card-body px-6">
                 <div class="px-5">
-                  <div class="text-center pt-5"><img src="{% static 'assets/img/icons/illustrations/edit.png' %}" width="48"
-                      height="48" alt="" />
+                  <div class="text-center pt-5"><img src="{% static 'assets/img/icons/illustrations/edit.png' %}"
+                      width="48" height="48" alt="" />
                     <h3 class="fw-semi-bold my-4">Business</h3>
                   </div>
                   <div class="text-center">
@@ -640,8 +716,8 @@
                 <div class="card h-100 mt-5 mt-md-0">
                   <div class="card-body">
                     <div class="px-5">
-                      <div class="text-center pt-5"><img src="{% static 'assets/img/icons/illustrations/shield.png' %}" width="48"
-                          height="48" alt="" />
+                      <div class="text-center pt-5"><img src="{% static 'assets/img/icons/illustrations/shield.png' %}"
+                          width="48" height="48" alt="" />
                         <h3 class="fw-semi-bold my-4">Enterprise</h3>
                       </div>
                       <div class="text-center">
@@ -703,8 +779,8 @@
         </div>
         <div class="row h-100 g-3 justify-content-center">
           <div class="col-sm-6 col-lg-3 mb-3 mb-md-0">
-            <div class="card text-white h-100"><img class="rounded-top h-100 fit-cover" src="{% static 'assets/img/blog/blog-1.png' %}"
-                alt="..." />
+            <div class="card text-white h-100"><img class="rounded-top h-100 fit-cover"
+                src="{% static 'assets/img/blog/blog-1.png' %}" alt="..." />
               <div class="card-body rounded-top">
                 <div class="d-flex align-items-cente mb-4">
                   <div class="d-flex align-items-center me-2"><a class="btn-link" href="#!"><span
@@ -724,8 +800,8 @@
             </div>
           </div>
           <div class="col-sm-6 col-lg-3 mb-3 mb-md-0">
-            <div class="card text-white h-100"><img class="rounded-top h-100 fit-cover" src="{% static 'assets/img/blog/blog-2.png' %}"
-                alt="..." />
+            <div class="card text-white h-100"><img class="rounded-top h-100 fit-cover"
+                src="{% static 'assets/img/blog/blog-2.png' %}" alt="..." />
               <div class="card-body rounded-top">
                 <div class="d-flex align-items-cente mb-4">
                   <div class="d-flex align-items-center me-2"><a class="btn-link" href="#!"><span
@@ -745,8 +821,8 @@
             </div>
           </div>
           <div class="col-sm-6 col-lg-3 mb-3 mb-md-0">
-            <div class="card text-white h-100"><img class="rounded-top h-100 fit-cover" src="{% static 'assets/img/blog/blog-3.png' %}"
-                alt="..." />
+            <div class="card text-white h-100"><img class="rounded-top h-100 fit-cover"
+                src="{% static 'assets/img/blog/blog-3.png' %}" alt="..." />
               <div class="card-body rounded-top">
                 <div class="d-flex align-items-cente mb-4">
                   <div class="d-flex align-items-center me-2"><a class="btn-link" href="#!"><span
@@ -766,8 +842,8 @@
             </div>
           </div>
           <div class="col-sm-6 col-lg-3 mb-3 mb-md-0">
-            <div class="card text-white h-100"><img class="rounded-top h-100 fit-cover" src="{% static 'assets/img/blog/blog-4.png' %}"
-                alt="..." />
+            <div class="card text-white h-100"><img class="rounded-top h-100 fit-cover"
+                src="{% static 'assets/img/blog/blog-4.png' %}" alt="..." />
               <div class="card-body rounded-top">
                 <div class="d-flex align-items-cente mb-4">
                   <div class="d-flex align-items-center me-2"><a class="btn-link" href="#!"><span
@@ -905,10 +981,12 @@
           <div class="col-sm-6 col-md-4 col-lg-3">
             <div class="text-center mt-5 position-relative">
               <div class="team-avatar-container d-inline-block position-relative">
-                <div class="bg-holder" style="background-image:url({% static 'assets/img/bg/bg-21.png' %});background-size:contain;">
+                <div class="bg-holder"
+                  style="background-image:url({% static 'assets/img/bg/bg-21.png' %});background-size:contain;">
                 </div>
                 <!--/.bg-holder-->
-                <img class="img-fluid rounded mb-3 position-relative" src="{% static 'assets/img/team/62.png' %}" alt="..." />
+                <img class="img-fluid rounded mb-3 position-relative" src="{% static 'assets/img/team/62.png' %}"
+                  alt="..." />
               </div>
               <h4>John Smith</h4>
               <h6 class="mb-3 fw-semi-bold">CEO, Global Cheat</h6><span
@@ -920,10 +998,12 @@
           <div class="col-sm-6 col-md-4 col-lg-3">
             <div class="text-center mt-5 position-relative">
               <div class="team-avatar-container d-inline-block position-relative">
-                <div class="bg-holder" style="background-image:url({% static 'assets/img/bg/bg-21.png' %});background-size:contain;">
+                <div class="bg-holder"
+                  style="background-image:url({% static 'assets/img/bg/bg-21.png' %});background-size:contain;">
                 </div>
                 <!--/.bg-holder-->
-                <img class="img-fluid rounded mb-3 position-relative" src="{% static 'assets/img/team/63.png' %}" alt="..." />
+                <img class="img-fluid rounded mb-3 position-relative" src="{% static 'assets/img/team/63.png' %}"
+                  alt="..." />
               </div>
               <h4>Marc Chiasson</h4>
               <h6 class="mb-3 fw-semi-bold">Vice President</h6><span
@@ -935,10 +1015,12 @@
           <div class="col-sm-6 col-md-4 col-lg-3">
             <div class="text-center mt-5 position-relative">
               <div class="team-avatar-container d-inline-block position-relative">
-                <div class="bg-holder" style="background-image:url({% static 'assets/img/bg/bg-21.png' %});background-size:contain;">
+                <div class="bg-holder"
+                  style="background-image:url({% static 'assets/img/bg/bg-21.png' %});background-size:contain;">
                 </div>
                 <!--/.bg-holder-->
-                <img class="img-fluid rounded mb-3 position-relative" src="{% static 'assets/img/team/64.png' %}" alt="..." />
+                <img class="img-fluid rounded mb-3 position-relative" src="{% static 'assets/img/team/64.png' %}"
+                  alt="..." />
               </div>
               <h4>Lilah Lola</h4>
               <h6 class="mb-3 fw-semi-bold">Marketing Manager</h6><span
@@ -953,7 +1035,8 @@
                 <div class="bg-holder" style="background-image:url(assets/img/bg/bg-21.png);background-size:contain;">
                 </div>
                 <!--/.bg-holder-->
-                <img class="img-fluid rounded mb-3 position-relative" src="{% static 'assets/img/team/65.png' %}" alt="..." />
+                <img class="img-fluid rounded mb-3 position-relative" src="{% static 'assets/img/team/65.png' %}"
+                  alt="..." />
               </div>
               <h4>Thomas Doe</h4>
               <h6 class="mb-3 fw-semi-bold">UX Designer</h6><span
@@ -965,10 +1048,12 @@
           <div class="col-sm-6 col-md-4 col-lg-3">
             <div class="text-center mt-5 position-relative">
               <div class="team-avatar-container d-inline-block position-relative">
-                <div class="bg-holder" style="background-image:url({% static 'assets/img/bg/bg-21.png' %});background-size:contain;">
+                <div class="bg-holder"
+                  style="background-image:url({% static 'assets/img/bg/bg-21.png' %});background-size:contain;">
                 </div>
                 <!--/.bg-holder-->
-                <img class="img-fluid rounded mb-3 position-relative" src="{% static 'assets/img/team/66.png' %}" alt="..." />
+                <img class="img-fluid rounded mb-3 position-relative" src="{% static 'assets/img/team/66.png' %}"
+                  alt="..." />
               </div>
               <h4>Alan Casey</h4>
               <h6 class="mb-3 fw-semi-bold">Front End Developer</h6><span
@@ -980,10 +1065,12 @@
           <div class="col-sm-6 col-md-4 col-lg-3">
             <div class="text-center mt-5 position-relative">
               <div class="team-avatar-container d-inline-block position-relative">
-                <div class="bg-holder" style="background-image:url({% static 'assets/img/bg/bg-21.png' %});background-size:contain;">
+                <div class="bg-holder"
+                  style="background-image:url({% static 'assets/img/bg/bg-21.png' %});background-size:contain;">
                 </div>
                 <!--/.bg-holder-->
-                <img class="img-fluid rounded mb-3 position-relative" src="{% static 'assets/img/team/67.png' %}" alt="..." />
+                <img class="img-fluid rounded mb-3 position-relative" src="{% static 'assets/img/team/67.png' %}"
+                  alt="..." />
               </div>
               <h4>Narokin Hijita</h4>
               <h6 class="mb-3 fw-semi-bold">CEO, Global Cheat</h6><span
@@ -995,10 +1082,12 @@
           <div class="col-sm-6 col-md-4 col-lg-3">
             <div class="text-center mt-5 position-relative">
               <div class="team-avatar-container d-inline-block position-relative">
-                <div class="bg-holder" style="background-image:url({% static 'assets/img/bg/bg-21.png' %});background-size:contain;">
+                <div class="bg-holder"
+                  style="background-image:url({% static 'assets/img/bg/bg-21.png' %});background-size:contain;">
                 </div>
                 <!--/.bg-holder-->
-                <img class="img-fluid rounded mb-3 position-relative" src="{% static 'assets/img/team/68.png' %}" alt="..." />
+                <img class="img-fluid rounded mb-3 position-relative" src="{% static 'assets/img/team/68.png' %}"
+                  alt="..." />
               </div>
               <h4>Narokin Hijita</h4>
               <h6 class="mb-3 fw-semi-bold">CEO, Global Cheat</h6><span
@@ -1010,10 +1099,12 @@
           <div class="col-sm-6 col-md-4 col-lg-3">
             <div class="text-center mt-5 position-relative">
               <div class="team-avatar-container d-inline-block position-relative">
-                <div class="bg-holder" style="background-image:url({% static 'assets/img/bg/bg-21.png' %});background-size:contain;">
+                <div class="bg-holder"
+                  style="background-image:url({% static 'assets/img/bg/bg-21.png' %});background-size:contain;">
                 </div>
                 <!--/.bg-holder-->
-                <img class="img-fluid rounded mb-3 position-relative" src="{% static 'assets/img/team/69.png' %}" alt="..." />
+                <img class="img-fluid rounded mb-3 position-relative" src="{% static 'assets/img/team/69.png' %}"
+                  alt="..." />
               </div>
               <h4>Narokin Hijita</h4>
               <h6 class="mb-3 fw-semi-bold">CEO, Global Cheat</h6><span
@@ -1039,8 +1130,8 @@
               <!--/.bg-holder-->
               <div class="card-body position-relative"><img class="img-fluid mb-5 d-dark-none"
                   src="{% static 'assets/img/spot-illustrations/27.png' %}" width="210" alt="..." /><img
-                  class="img-fluid mb-5 d-light-none" src="{% static 'assets/img/spot-illustrations/dark_27.png' %}" width="210"
-                  alt="..." />
+                  class="img-fluid mb-5 d-light-none" src="{% static 'assets/img/spot-illustrations/dark_27.png' %}"
+                  width="210" alt="..." />
                 <p class="fw-bold">2008 Premium Icons <span class="text-primary fs-2">.</span> Included FREE with it</p>
                 <h1 class="fs-2 fs-sm-4 fs-lg-6 fw-bolder lh-sm mb-3">Join<span
                     class="gradient-text-primary mx-2">Phoenix</span><span>Today</span></h1>
@@ -1059,7 +1150,8 @@
     <!-- ============================================-->
 
     <div class="position-relative">
-      <div class="bg-holder footer-bg" style="background-image:url({% static 'assets/img/bg/bg-19.png' %});background-size:auto;">
+      <div class="bg-holder footer-bg"
+        style="background-image:url({% static 'assets/img/bg/bg-19.png' %});background-size:auto;">
       </div>
       <!--/.bg-holder-->
       <div class="bg-holder"
@@ -1067,7 +1159,8 @@
       </div>
       <!--/.bg-holder-->
       <div class="bg-holder"
-        style="background-image:url({% static 'assets/img/bg/bg-left-20.png' %});background-position:left;background-size:auto;"></div>
+        style="background-image:url({% static 'assets/img/bg/bg-left-20.png' %});background-position:left;background-size:auto;">
+      </div>
       <!--/.bg-holder-->
       <div class="position-relative"> <svg class="w-100 text-white" preserveAspectRatio="none" viewBox="0 0 1920 368"
           fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -1201,14 +1294,15 @@
               value="vertical" data-theme-control="phoenixNavbarPosition" /><label
               class="btn d-inline-block btn-navbar-style fs--1" for="navbarPositionVertical"> <span
                 class="mb-2 rounded d-block"><img class="img-fluid img-prototype d-dark-none"
-                  src="{% static 'assets/img/generic/default-light.png' %}" alt="" /><img class="img-fluid img-prototype d-light-none"
-                  src="{% static 'assets/img/generic/default-dark.png' %}" alt="" /></span><span
-                class="label-text">Vertical</span></label></div>
+                  src="{% static 'assets/img/generic/default-light.png' %}" alt="" /><img
+                  class="img-fluid img-prototype d-light-none" src="{% static 'assets/img/generic/default-dark.png' %}"
+                  alt="" /></span><span class="label-text">Vertical</span></label></div>
           <div class="col-6"><input class="btn-check" id="navbarPositionHorizontal" name="navigation-type" type="radio"
               value="horizontal" data-theme-control="phoenixNavbarPosition" /><label
               class="btn d-inline-block btn-navbar-style fs--1" for="navbarPositionHorizontal"> <span
                 class="mb-2 rounded d-block"><img class="img-fluid img-prototype d-dark-none"
-                  src="{% static 'assets/img/generic/top-default.png' %}" alt="" /><img class="img-fluid img-prototype d-light-none"
+                  src="{% static 'assets/img/generic/top-default.png' %}" alt="" /><img
+                  class="img-fluid img-prototype d-light-none"
                   src="{% static 'assets/img/generic/top-default-dark.png' %}" alt="" /></span><span class="label-text">
                 Horizontal</span></label></div>
         </div>
@@ -1219,16 +1313,17 @@
           <div class="col-6"><input class="btn-check" id="navbar-style-default" type="radio" name="config.name"
               value="default" data-theme-control="phoenixNavbarVerticalStyle" /><label
               class="btn d-block w-100 btn-navbar-style fs--1" for="navbar-style-default"> <img
-                class="img-fluid img-prototype d-dark-none" src="{% static 'assets/img/generic/default-light.png' %}" alt="" /><img
-                class="img-fluid img-prototype d-light-none" src="{% static 'assets/img/generic/default-dark.png' %}" alt="" /><span
-                class="label-text d-dark-none"> Default</span><span
-                class="label-text d-light-none">Default</span></label></div>
+                class="img-fluid img-prototype d-dark-none" src="{% static 'assets/img/generic/default-light.png' %}"
+                alt="" /><img class="img-fluid img-prototype d-light-none"
+                src="{% static 'assets/img/generic/default-dark.png' %}" alt="" /><span class="label-text d-dark-none">
+                Default</span><span class="label-text d-light-none">Default</span></label></div>
           <div class="col-6"><input class="btn-check" id="navbar-style-dark" type="radio" name="config.name"
               value="darker" data-theme-control="phoenixNavbarVerticalStyle" /><label
               class="btn d-block w-100 btn-navbar-style fs--1" for="navbar-style-dark"> <img
-                class="img-fluid img-prototype d-dark-none" src="{% static 'assets/img/generic/vertical-darker.png' %}" alt="" /><img
-                class="img-fluid img-prototype d-light-none" src="{% static 'assets/img/generic/vertical-lighter.png' %}"
-                alt="" /><span class="label-text d-dark-none"> Darker</span><span
+                class="img-fluid img-prototype d-dark-none" src="{% static 'assets/img/generic/vertical-darker.png' %}"
+                alt="" /><img class="img-fluid img-prototype d-light-none"
+                src="{% static 'assets/img/generic/vertical-lighter.png' %}" alt="" /><span
+                class="label-text d-dark-none"> Darker</span><span
                 class="label-text d-light-none">Lighter</span></label></div>
         </div>
       </div>
@@ -1240,14 +1335,16 @@
               class="btn d-inline-block btn-navbar-style fs--1" for="navbarShapeDefault"> <span
                 class="mb-2 rounded d-block"><img class="img-fluid img-prototype d-dark-none mb-0"
                   src="{% static 'assets/img/generic/top-default.png' %}" alt="" /><img
-                  class="img-fluid img-prototype d-light-none mb-0" src="{% static 'assets/img/generic/top-default-dark.png' %}"
-                  alt="" /></span><span class="label-text">Default</span></label></div>
+                  class="img-fluid img-prototype d-light-none mb-0"
+                  src="{% static 'assets/img/generic/top-default-dark.png' %}" alt="" /></span><span
+                class="label-text">Default</span></label></div>
           <div class="col-6"><input class="btn-check" id="navbarShapeSlim" name="navbar-shape" type="radio" value="slim"
               data-theme-control="phoenixNavbarTopShape" /><label class="btn d-inline-block btn-navbar-style fs--1"
               for="navbarShapeSlim"> <span class="mb-2 rounded d-block"><img
-                  class="img-fluid img-prototype d-dark-none mb-0" src="{% static 'assets/img/generic/top-slim.png' %}" alt="" /><img
-                  class="img-fluid img-prototype d-light-none mb-0" src="{% static 'assets/img/generic/top-slim-dark.png' %}"
-                  alt="" /></span><span class="label-text"> Slim</span></label></div>
+                  class="img-fluid img-prototype d-dark-none mb-0" src="{% static 'assets/img/generic/top-slim.png' %}"
+                  alt="" /><img class="img-fluid img-prototype d-light-none mb-0"
+                  src="{% static 'assets/img/generic/top-slim-dark.png' %}" alt="" /></span><span class="label-text">
+                Slim</span></label></div>
         </div>
       </div>
       <div class="setting-panel-item">
@@ -1258,16 +1355,18 @@
               class="btn d-inline-block btn-navbar-style fs--1" for="navbarTopDefault"> <span
                 class="mb-2 rounded d-block"><img class="img-fluid img-prototype d-dark-none mb-0"
                   src="{% static 'assets/img/generic/top-default.png' %}" alt="" /><img
-                  class="img-fluid img-prototype d-light-none mb-0" src="{% static 'assets/img/generic/top-style-darker.png' %}"
-                  alt="" /></span><span class="label-text">Default</span></label></div>
+                  class="img-fluid img-prototype d-light-none mb-0"
+                  src="{% static 'assets/img/generic/top-style-darker.png' %}" alt="" /></span><span
+                class="label-text">Default</span></label></div>
           <div class="col-6"><input class="btn-check" id="navbarTopDarker" name="navbar-top-style" type="radio"
               value="darker" data-theme-control="phoenixNavbarTopStyle" /><label
               class="btn d-inline-block btn-navbar-style fs--1" for="navbarTopDarker"> <span
                 class="mb-2 rounded d-block"><img class="img-fluid img-prototype d-dark-none mb-0"
                   src="{% static 'assets/img/generic/navbar-top-style-light.png' %}" alt="" /><img
-                  class="img-fluid img-prototype d-light-none mb-0" src="{% static 'assets/img/generic/top-style-lighter.png' %}"
-                  alt="" /></span><span class="label-text d-dark-none">Darker</span><span
-                class="label-text d-light-none">Lighter</span></label></div>
+                  class="img-fluid img-prototype d-light-none mb-0"
+                  src="{% static 'assets/img/generic/top-style-lighter.png' %}" alt="" /></span><span
+                class="label-text d-dark-none">Darker</span><span class="label-text d-light-none">Lighter</span></label>
+          </div>
         </div>
       </div><a class="bun btn-primary d-grid mb-3 text-white dark__text-100 mt-5 btn btn-primary" href="#!"
         target="_blank">Purchase template</a>
