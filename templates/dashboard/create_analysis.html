@@ -1,0 +1,200 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en-US" dir="ltr">
+
+<meta http-equiv="content-type" content="text/html;charset=utf-8" /><!-- /Added by HTTrack -->
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>WhaleStreet</title>
+    {% include 'dashboard/common_css.html' %}
+    {% block common_css %}
+    {% endblock %}
+
+    <style>
+        .ticker-box-wrapper-main{
+            position: relative;
+        }
+        .tickers-box{
+            top: 40px;
+            position: absolute;
+            width: 100%;
+            z-index: 999;
+        }
+        .tickers-box ul{
+            
+            overflow: auto;
+            max-height: 150px;
+            border-color: #3874ff;
+            background-color: #373e53;
+        }
+        .tickers-box ul li{
+
+        }
+        .tickers-box ul li:hover{
+            background-color: white;
+            color: black;
+            cursor: pointer;
+            
+        }
+    </style>
+</head>
+
+<body>
+    <!-- ===============================================-->
+    <!--    Main Content-->
+    <!-- ===============================================-->
+    <main class="main" id="top">
+        <div class="container-fluid px-0" data-layout="container">
+            {% include 'dashboard/common_navbar.html' %}
+            {% block common_navbar %}
+            {% endblock %}
+
+
+            <div class="content">
+                <h2 class="mb-4">Create Trade</h2>
+                <div class="row">
+                    <div class="col-xl-9">
+                        <form class="row g-3 mb-6" id="create-trade-form">
+                            {% csrf_token %}
+                            <div class="col-sm-6 col-md-4">
+                                <div class="form-floating">
+                                    <select name="ticker_type" class="form-select" id="floatingSelectTaskTicker">
+                                        {% for types in ticker_types %}
+                                        <option value="{{types.id}}">{{types.name}}</option>
+                                        {% endfor %}
+                                    </select>
+                                    <label for="floatingSelectTask">Ticker Type</label>
+                                </div>
+                            </div>
+                            <div class="col-sm-6 col-md-8 ticker-box-wrapper-main">
+                                <div class="form-floating">
+                                    <input name="ticker_name" class="form-control" id="get_ticker_name" type="text" placeholder="Project title" />
+                                    <label for="floatingInputGrid">Search Stocks, Options</label>
+                                </div>
+                                <div class="tickers-box mt-1" id="tickers-box-wrapper">
+                                    <ul style="list-style: none; padding:0;" id="ticker-ul">
+                            
+                                    </ul>
+                                </div>
+                            </div>
+                            <div class="col-sm-6 col-md-4">
+                                <div class="form-floating">
+                                    <input name="entry_price" class="form-control" id="floatingInputGrid" type="text" placeholder="Project title" />
+                                    <label for="floatingInputGrid">Entery Price</label>
+                                </div>
+                            </div>
+                            <div class="col-sm-6 col-md-4">
+                                <div class="form-floating">
+                                    <input name="target_price" class="form-control" id="floatingInputGrid" type="text" placeholder="Project title" />
+                                    <label for="floatingInputGrid">Enter Target Price</label>
+                                </div>
+                            </div>
+                            <div class="col-sm-6 col-md-4">
+                                <div class="form-floating">
+                                    <input name="stop_loss" class="form-control" id="floatingInputGrid" type="text" placeholder="Project title" />
+                                    <label for="floatingInputGrid">Enter Stop Loss</label>
+                                </div>
+                            </div>
+                            
+                            <div class="col-sm-6 col-md-4" id="strike-side-wrapper">
+                                <div class="form-floating">
+                                    <select name="strike_side" class="form-select" id="floatingSelectPrivacy">
+                                        {% for sides in strike_sides %}
+                                        <option value="{{sides.id}}">{{sides.name}}</option>
+                                        {% endfor %}
+                                    </select>
+                                    <label for="floatingSelectPrivacy">Strike Side</label>
+                                </div>
+                            </div>
+                            
+                            <div class="col-12 gy-6">
+                                <div class="row g-3 justify-content-end">
+                                    <div class="col-md-6">
+                                        <button class="btn btn-lg btn-phoenix-primary px-5">Clear</button>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <button id="create-trade-form-submit" class="btn btn-lg btn-primary px-5 px-sm-15">Create Trade</button>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </form>
+                    </div>
+                </div>
+                {% include 'dashboard/common_footer.html' %}
+                {% block common_footer %}
+                {% endblock %}
+            </div>
+        </div>
+        <script>
+            var navbarTopShape = localStorage.getItem('phoenixNavbarTopShape');
+            var navbarPosition = localStorage.getItem('phoenixNavbarPosition');
+            var body = document.querySelector('body');
+            var navbarDefault = document.querySelector('#navbarDefault');
+            var navbarTopNew = document.querySelector('#navbarTopNew');
+            var navbarSlim = document.querySelector('#navbarSlim');
+            var navbarTopSlimNew = document.querySelector('#navbarTopSlimNew');
+
+            var documentElement = document.documentElement;
+            var navbarVertical = document.querySelector('.navbar-vertical');
+
+            if (navbarTopShape === 'slim' && navbarPosition === 'vertical') {
+                navbarDefault.remove();
+                navbarTopNew.remove();
+                navbarTopSlimNew.remove();
+                navbarSlim.style.display = 'block';
+                navbarVertical.style.display = 'inline-block';
+                body.classList.add('nav-slim');
+            } else if (navbarTopShape === 'slim' && navbarPosition === 'horizontal') {
+                navbarDefault.remove();
+                navbarVertical.remove();
+                navbarTopNew.remove();
+                navbarSlim.remove();
+                navbarTopSlimNew.removeAttribute('style');
+                body.classList.add('nav-slim');
+            } else if (navbarTopShape === 'default' && navbarPosition === 'horizontal') {
+                navbarDefault.remove();
+                navbarSlim.remove();
+                navbarVertical.remove();
+                navbarTopSlimNew.remove();
+                navbarTopNew.removeAttribute('style');
+                documentElement.classList.add('navbar-horizontal')
+
+            } else {
+                body.classList.remove('nav-slim');
+                navbarSlim.remove();
+                navbarTopNew.remove();
+                navbarTopSlimNew.remove();
+                navbarDefault.removeAttribute('style');
+                navbarVertical.removeAttribute('style');
+            }
+
+            var navbarTopStyle = localStorage.getItem('phoenixNavbarTopStyle');
+            var navbarTop = document.querySelector('.navbar-top');
+            if (navbarTopStyle === 'darker') {
+                navbarTop.classList.add('navbar-darker');
+            }
+
+            var navbarVerticalStyle = localStorage.getItem('phoenixNavbarVerticalStyle');
+            var navbarVertical = document.querySelector('.navbar-vertical');
+            if (navbarVerticalStyle === 'darker') {
+                navbarVertical.classList.add('navbar-darker');
+            }
+        </script>
+        
+    </main>
+    <!-- ===============================================-->
+    <!--    End of Main Content-->
+    <!-- ===============================================-->
+
+    {% include 'dashboard/common_js.html' %}
+    {% block common_js %}
+    {% endblock %}
+
+    <script src="{% static 'assets/js/create_trade.js' %}"></script>
+</body>
+
+</html>

@@ -1,0 +1,242 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en-US" dir="ltr">
+
+<meta http-equiv="content-type" content="text/html;charset=utf-8" /><!-- /Added by HTTrack -->
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>WhaleStreet</title>
+    {% include 'dashboard/common_css.html' %}
+    {% block common_css %}
+    {% endblock %}
+</head>
+
+<body>
+    <!-- ===============================================-->
+    <!--    Main Content-->
+    <!-- ===============================================-->
+    <main class="main" id="top">
+        <div class="container-fluid px-0" data-layout="container">
+            {% include 'dashboard/common_navbar.html' %}
+            {% block common_navbar %}
+            {% endblock %}
+
+            <div class="content">
+                <!-- <nav class="mb-2" aria-label="breadcrumb">
+                    <ol class="breadcrumb mb-0">
+                        <li class="breadcrumb-item"><a href="#!">Page 1</a></li>
+                        <li class="breadcrumb-item"><a href="#!">Page 2</a></li>
+                        <li class="breadcrumb-item active">Default</li>
+                    </ol>
+                </nav> -->
+                <div class="mb-9">
+                    <div class="row g-2 mb-4">
+                        <div class="col-auto">
+                            <h2 class="mb-0">All Trades</h2>
+                        </div>
+                    </div>
+                    <!-- <ul class="nav nav-links mb-3 mb-lg-2 mx-n3">
+                        <li class="nav-item"><a class="nav-link active" aria-current="page" href="#">All <span
+                                    class="text-700 fw-semi-bold">(68817)</span></a></li>
+                        <li class="nav-item"><a class="nav-link" href="#">New <span
+                                    class="text-700 fw-semi-bold">(6)</span></a></li>
+                        <li class="nav-item"><a class="nav-link" href="#">Abandoned checkouts <span
+                                    class="text-700 fw-semi-bold">(17)</span></a></li>
+                        <li class="nav-item"><a class="nav-link" href="#">Locals <span
+                                    class="text-700 fw-semi-bold">(6,810)</span></a></li>
+                        <li class="nav-item"><a class="nav-link" href="#">Email subscribers <span
+                                    class="text-700 fw-semi-bold">(8)</span></a></li>
+                        <li class="nav-item"><a class="nav-link" href="#">Top reviews <span
+                                    class="text-700 fw-semi-bold">(2)</span></a></li>
+                    </ul> -->
+                    <div id="products"
+                        data-list='{"valueNames":["customer","email","total-orders","total-spent","city","last-seen","last-order"],"page":10,"pagination":true}'>
+                        <div class="mb-4">
+                            <div class="row g-3">
+                                <div class="col-auto">
+                                    <div class="search-box">
+                                        <form class="position-relative" data-bs-toggle="search"
+                                            data-bs-display="static"><input class="form-control search-input search"
+                                                type="search" placeholder="Search Stocks, Options"
+                                                aria-label="Search" />
+                                            <span class="fas fa-search search-box-icon"></span>
+                                        </form>
+                                    </div>
+                                </div>
+                                <!-- <div class="col-auto scrollbar overflow-hidden-y flex-grow-1">
+                                    <div class="btn-group position-static" role="group">
+                                        <div class="btn-group position-static text-nowrap"><button
+                                                class="btn btn-phoenix-secondary px-7 flex-shrink-0" type="button"
+                                                data-bs-toggle="dropdown" data-boundary="window" aria-haspopup="true"
+                                                aria-expanded="false" data-bs-reference="parent"> Strike Side<span
+                                                    class="fas fa-angle-down ms-2"></span></button>
+                                            <ul class="dropdown-menu">
+                                                <li><a class="dropdown-item" href="#">PUT</a></li>
+                                                <li><a class="dropdown-item" href="#">CALL</a></li>
+                                            </ul>
+                                        </div>
+                                        <div class="btn-group position-static text-nowrap"><button
+                                                class="btn btn-sm btn-phoenix-secondary px-7 flex-shrink-0"
+                                                type="button" data-bs-toggle="dropdown" data-boundary="window"
+                                                aria-haspopup="true" aria-expanded="false" data-bs-reference="parent">
+                                                Type
+                                                <span class="fas fa-angle-down ms-2"></span></button>
+                                            <ul class="dropdown-menu">
+                                                <li><a class="dropdown-item" href="#">Profit</a></li>
+                                                <li><a class="dropdown-item" href="#">Loss</a></li>
+                                            </ul>
+                                        </div><button class="btn btn-phoenix-secondary px-7 flex-shrink-0">More
+                                            filters</button>
+                                    </div>
+                                </div> -->
+                                <div class="col-auto">
+                                    <a class="btn btn-primary fs--1 me-2" href="{% url 'dashboard:create-analysis' %}">
+                                        <span class="fas fa-plus me-2"></span>Add Trade
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                        <div
+                            class="mx-n4 px-4 mx-lg-n6 px-lg-6 bg-white border-top border-bottom border-200 position-relative top-1">
+                            <div class="table-responsive scrollbar-overlay mx-n1 px-1">
+                                <table class="table table-sm fs--1 mb-0">
+                                    <thead>
+                                        <tr>
+                                            <th class="sort align-middle " scope="col" data-sort="customer"
+                                                style="width:10%;">Ticker</th>
+                                            <th class="sort align-middle " scope="col" data-sort="total-orders"
+                                                style="width:10%">Entry Price</th>
+                                            <th class="sort align-middle " scope="col" data-sort="total-spent"
+                                                style="width:10%">Stop Loss</th>
+                                            <th class="sort align-middle " scope="col" data-sort="city"
+                                                style="width:10%;">Target Price</th>
+                                            <th class="sort align-middle " scope="col" data-sort="city"
+                                                style="width:10%;">Strike Side</th>
+                                            <th class="sort align-middle " scope="col" data-sort="city"
+                                                style="width:10%;">Type</th>
+
+                                        </tr>
+                                    </thead>
+                                    <tbody class="list" id="table-latest-review-body">
+                                        {% for trade in trades %}
+                                        <tr class="hover-actions-trigger btn-reveal-trigger position-static">
+                                            <td class="customer align-middle white-space-nowrap pe-5">
+                                                <a class="d-flex align-items-center"
+                                                    href="{% url 'dashboard:edit-trade' trade.id %}">
+                                                    <p class="mb-0 ms-3 text-1100 fw-bold {% if trade.is_target %} text-success {% elif trade.is_sl %} text-danger {% endif %}">{{trade.ticker_name}}</p>
+                                                </a>
+                                            </td>
+                                            <td
+                                                class="{% if trade.is_target %} text-success {% elif trade.is_sl %} text-danger {% endif %}  total-orders align-middle white-space-nowrap fw-semi-bold text-1000">
+                                                {{trade.entry_price}}</td>
+                                            <td
+                                                class="{% if trade.is_target %} text-success {% elif trade.is_sl %} text-danger {% endif %} total-orders align-middle white-space-nowrap fw-semi-bold text-1000">
+                                                {{trade.stop_loss}}</td>
+                                            <td
+                                                class="{% if trade.is_target %} text-success {% elif trade.is_sl %} text-danger {% endif %} total-orders align-middle white-space-nowrap fw-semi-bold text-1000">
+                                                {{trade.target_price}}</td>
+                                            <td
+                                                class="{% if trade.is_target %} text-success {% elif trade.is_sl %} text-danger {% endif %} total-orders align-middle white-space-nowrap fw-semi-bold text-1000">
+                                                {{trade.strike_side}}</td>
+                                            <td
+                                                class="{% if trade.is_target %} text-success {% elif trade.is_sl %} text-danger {% endif %} total-orders align-middle white-space-nowrap fw-semi-bold text-1000">
+                                                {{trade.ticker_type}}</td>
+
+                                        </tr>
+                                        {% endfor %}
+
+                                    </tbody>
+                                </table>
+                            </div>
+                            <div class="row align-items-center justify-content-between py-2 pe-0 fs--1">
+                                <div class="col-auto d-flex">
+                                    <p class="mb-0 d-none d-sm-block me-3 fw-semi-bold text-900"
+                                        data-list-info="data-list-info"></p><a class="fw-semi-bold" href="#!"
+                                        data-list-view="*">View all<span class="fas fa-angle-right ms-1"
+                                            data-fa-transform="down-1"></span></a><a class="fw-semi-bold d-none"
+                                        href="#!" data-list-view="less">View Less<span class="fas fa-angle-right ms-1"
+                                            data-fa-transform="down-1"></span></a>
+                                </div>
+                                <div class="col-auto d-flex"><button class="page-link" data-list-pagination="prev"><span
+                                            class="fas fa-chevron-left"></span></button>
+                                    <ul class="mb-0 pagination"></ul><button class="page-link pe-0"
+                                        data-list-pagination="next"><span class="fas fa-chevron-right"></span></button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                {% include 'dashboard/common_footer.html' %}
+                {% block footer %}
+                {% endblock %}
+            </div>
+        </div>
+        <script>
+            var navbarTopShape = localStorage.getItem('phoenixNavbarTopShape');
+            var navbarPosition = localStorage.getItem('phoenixNavbarPosition');
+            var body = document.querySelector('body');
+            var navbarDefault = document.querySelector('#navbarDefault');
+            var navbarTopNew = document.querySelector('#navbarTopNew');
+            var navbarSlim = document.querySelector('#navbarSlim');
+            var navbarTopSlimNew = document.querySelector('#navbarTopSlimNew');
+
+            var documentElement = document.documentElement;
+            var navbarVertical = document.querySelector('.navbar-vertical');
+
+            if (navbarTopShape === 'slim' && navbarPosition === 'vertical') {
+                navbarDefault.remove();
+                navbarTopNew.remove();
+                navbarTopSlimNew.remove();
+                navbarSlim.style.display = 'block';
+                navbarVertical.style.display = 'inline-block';
+                body.classList.add('nav-slim');
+            } else if (navbarTopShape === 'slim' && navbarPosition === 'horizontal') {
+                navbarDefault.remove();
+                navbarVertical.remove();
+                navbarTopNew.remove();
+                navbarSlim.remove();
+                navbarTopSlimNew.removeAttribute('style');
+                body.classList.add('nav-slim');
+            } else if (navbarTopShape === 'default' && navbarPosition === 'horizontal') {
+                navbarDefault.remove();
+                navbarSlim.remove();
+                navbarVertical.remove();
+                navbarTopSlimNew.remove();
+                navbarTopNew.removeAttribute('style');
+                documentElement.classList.add('navbar-horizontal')
+
+            } else {
+                body.classList.remove('nav-slim');
+                navbarSlim.remove();
+                navbarTopNew.remove();
+                navbarTopSlimNew.remove();
+                navbarDefault.removeAttribute('style');
+                navbarVertical.removeAttribute('style');
+            }
+
+            var navbarTopStyle = localStorage.getItem('phoenixNavbarTopStyle');
+            var navbarTop = document.querySelector('.navbar-top');
+            if (navbarTopStyle === 'darker') {
+                navbarTop.classList.add('navbar-darker');
+            }
+
+            var navbarVerticalStyle = localStorage.getItem('phoenixNavbarVerticalStyle');
+            var navbarVertical = document.querySelector('.navbar-vertical');
+            if (navbarVerticalStyle === 'darker') {
+                navbarVertical.classList.add('navbar-darker');
+            }
+        </script>
+    </main>
+    <!-- ===============================================-->
+    <!--    End of Main Content-->
+    <!-- ===============================================-->
+
+    {% include 'dashboard/common_js.html' %}
+    {% block common_js %}
+    {% endblock %}
+</body>
+
+</html>
