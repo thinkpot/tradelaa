@@ -26,7 +26,7 @@ class CreateTradeFormSerializer(ModelSerializer):
         fields = '__all__'
 
 
-class TargetDataSerializer(serializers.ModelSerializer):
+class SlTpDataSerializer(serializers.ModelSerializer):
     class Meta:
         model = Trades
         fields = '__all__'

@@ -24,7 +24,7 @@ class DashboardViewSet(TemplateView):
 
 class CreateTrade(TemplateView):
     template_name = 'dashboard/create_analysis.html'
-    
+
     def get_context_data(self, **kwargs):
         context = super().get_context_data()
         context['ticker_types'] = TickerTypes.objects.all()
@@ -98,7 +98,7 @@ class TickerNameViewSet(ModelViewSet):
         query_params = self.request.query_params
         for value in query_params.values():
             if value is None:
-                return JsonResponse({"msg":"none"})
+                return JsonResponse({"msg": "none"})
 
         filters = {'{}'.format(key): value for key, value in query_params.items()}
         return self.queryset.filter(**filters)

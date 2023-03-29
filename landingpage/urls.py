@@ -4,5 +4,5 @@ from .views import HomePageViewSet
 
 
 urlpatterns = [
-    path(r'', HomePageViewSet.as_view(), name='dashboard'),
+    path(r'', HomePageViewSet.as_view(), name='homepage'),
 ]

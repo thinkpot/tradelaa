@@ -66,11 +66,12 @@
                   <h3>Profit Growth</h3>
                   <!-- <p class="text-700 lh-sm mb-0">Payment received across all channels</p> -->
                 </div>
-                <div class="col-8 col-sm-4"><select class="form-select form-select-sm mt-2"
-                    id="select-gross-revenue-month">
-                    <option>Mar 1 - 31, 2022</option>
-                    <option>April 1 - 30, 2022</option>
-                    <option>May 1 - 31, 2022</option>
+                <div class="col-8 col-sm-4">
+                  <select class="form-select form-select-sm mt-2" id="select-gross-revenue-month-filter">
+                    <option value="7">Last 7 Days</option>
+                    <option value="30">Last 30 Days</option>
+                    <option value="1">Today</option>
+
                   </select></div>
               </div>
               <div class="echart-total-sales-chart" style="min-height:320px;width:100%"
@@ -88,9 +89,9 @@
                           <h5 class="mb-1">Target Hit<span
                               class="badge badge-phoenix badge-phoenix-warning rounded-pill fs--1 ms-2"> <span
                                 class="badge-label">+26.5%</span></span></h5>
-                          <h6 class="text-700">Last 7 days</h6>
+                          <h6 class="text-700" id="profit-chart-days-count">Last 7 days</h6>
                         </div>
-                        <h4>{{data.target_count}}</h4>
+                        <h4 id="target-count">0</h4>
                       </div>
                       <div class="pb-0 pt-4">
                         <div id="target-hit-chart" class="target-hit-chart" style="height:250px;width:100%;"
@@ -108,12 +109,12 @@
                           <h5 class="mb-1">Stop Loss Hit<span
                               class="badge badge-phoenix badge-phoenix-warning rounded-pill fs--1 ms-2"> <span
                                 class="badge-label">+26.5%</span></span></h5>
-                          <h6 class="text-700">Last 7 days</h6>
+                          <h6 class="text-700" id="stoploss-chart-days-count">Last 7 days</h6>
                         </div>
-                        <h4>356</h4>
+                        <h4 id="stoploss-count">0</h4>
                       </div>
                       <div class="pb-0 pt-4">
-                        <div class="echarts-new-customers" style="height:180px;width:100%;"
+                        <div id="stop-loss-chart" class="stop-loss-chart" style="height:250px;width:100%;"
                           data-echart-responsive="true"></div>
                       </div>
                     </div>

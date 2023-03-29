@@ -44,6 +44,7 @@ class Trades(models.Model):
     is_sl = models.BooleanField(null=True, blank=True)
     is_target = models.BooleanField(null=True, blank=True)
     is_exit_between = models.BooleanField(null=True, blank=True)
+    symbol = models.CharField(max_length=255, null=True, blank=True)
 
     def __str__(self):
         return str(self.ticker_name)
