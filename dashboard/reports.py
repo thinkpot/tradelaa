@@ -14,3 +14,7 @@ def basic_dashboard(data):
 
 
     return data
+
+
+def student_dashboard(data):
+    return True

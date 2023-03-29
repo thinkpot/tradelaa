@@ -1,14 +1,13 @@
 from django.contrib import admin
 from django.urls import path, include
-from allauth.account.views import LoginView, LogoutView, PasswordResetView
 from dashboard.views import DashboardViewSet
-from .views import MyProfileView
+from .views import *
+from django.contrib.auth.views import PasswordResetView, PasswordResetDoneView, PasswordResetConfirmView, PasswordResetCompleteView
 
 
 urlpatterns = [
-    path('logout/', LogoutView.as_view(), name='account_logout'),
-    path('login/', LoginView.as_view(), name='account_login'),
-    path('logout', LogoutView.as_view(), name='account_logout'),
-    path('profile/', DashboardViewSet.as_view(), name='dashbaord-view'),
-    path('my-profile/', MyProfileView.as_view(), name='my_profile_view')
+    path(r'success/', SuccessView.as_view(), name="success_view"),
+    path(r'signup/', SignupView.as_view(), name="account_signup"),
+    path(r'login/', LoginView.as_view(), name='account_login'),
+    path(r'logout/', LogoutView.as_view(), name='account_logout'),
 ]

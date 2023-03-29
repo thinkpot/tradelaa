@@ -45,6 +45,8 @@ function search_stock(ticker){
                     list_item.addEventListener("mouseover", function(){
                         console.log(list_item.getAttribute('aria-label'))
                         ticker_input_box.value = list_item.getAttribute('aria-label')
+                        $("#stock_symbol").value = this['symbol']
+                        
                     })
 
                     item_text = this['name']

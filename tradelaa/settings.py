@@ -72,7 +72,7 @@ WSGI_APPLICATION = 'tradelaa.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'tradelaa',
+        'NAME': 'tradelaa2',
         'USER': 'postgres',
         'PASSWORD': '#1qwerty',
         'HOST': 'localhost',
@@ -126,4 +126,11 @@ STATICFILES_DIRS = [
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 # user model
-# AUTH_USER_MODEL = 'accounts.CustomUser'
+AUTH_USER_MODEL = 'accounts.CustomUser'
+EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_HOST_PORT = 25
+EMAIL_USE_TLS = True
+EMAIL_HOST_USER = 'your_gmail_account@gmail.com'
+EMAIL_HOST_PASSWORD = 'your_gmail_password'
