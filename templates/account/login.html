@@ -36,9 +36,30 @@
                 <button class="btn btn-phoenix-secondary w-100 mb-3">
                   <span class="fab fa-google text-danger me-2 fs--1"></span>Sign in with google
                 </button>
-                <button class="btn btn-phoenix-secondary w-100">
-                  <span class="fab fa-facebook text-primary me-2 fs--1"></span>Sign in with facebook
-                </button>
+
+                <div class="row g-3">
+                  {% for broker in cv.brokers %}
+                  <div class="col-md-6">
+                    {% if broker.broker.short_title == 'zerodha' %}
+                    <a href="https://kite.zerodha.com/connect/login?v=3&api_key={{broker.api_key}}">
+                      <div class="btn btn-phoenix-secondary w-100">
+                        <img src="{% static 'assets/img/logos/zerodha.png' %}" width="50px">
+                        <div class="div">Sign in with Zerodha</div>
+                      </div>
+                    </a>
+                    {% elif broker.broker.short_title == 'fyers' %}
+                    <a href="https://api.fyers.in/api/v2/generate-authcode?client_id={{broker.api_key}}&redirect_uri=http://127.0.0.1:8000/accounts/fyers-auth/&response_type=code&state=sample_state">
+                      <div class="btn btn-phoenix-secondary w-100">
+                        <img src="{% static 'assets/img/logos/fyers.svg' %}" width="50px">
+                        <div class="div">Sign in with fyers</div>
+                      </div>
+                    </a>
+                    {% endif %}
+                  </div>
+                  {% endfor %}
+                </div>
+
+
                 <div class="position-relative">
                   <hr class="bg-200 mt-5 mb-4" />
                   <div class="divider-content-center">or use email</div>
@@ -46,7 +67,8 @@
                 <div class="mb-3 text-start">
                   <label class="form-label" for="email">Email</label>
                   <div class="form-icon-container">
-                    <input class="form-control form-icon-input" id="email" type="email" placeholder="Email Address" name="email" />
+                    <input class="form-control form-icon-input" id="email" type="email" placeholder="Email Address"
+                      name="email" />
                     <span class="fas fa-user text-900 fs--1 form-icon"></span>
                   </div>
                 </div>

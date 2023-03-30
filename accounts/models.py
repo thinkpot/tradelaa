@@ -32,3 +32,37 @@ class CustomUser(AbstractBaseUser, PermissionsMixin):
     def __str__(self):
         return self.email
 
+
+class OwnBrokers(models.Model):
+    title = models.CharField(max_length=255, null=True, blank=True)
+    short_title = models.CharField(max_length=100, null=True, blank=True)
+
+    def __str__(self):
+        return str(self.title)
+
+
+class OwnBrokersCredentials(models.Model):
+    broker = models.ForeignKey(OwnBrokers, on_delete=models.DO_NOTHING, null=True, blank=True)
+    api_key = models.CharField(max_length=255, null=True, blank=True)
+    api_secret = models.CharField(max_length=255, null=True, blank=True)
+
+    def __str__(self):
+        return str(self.broker)
+
+
+class ZerodhaUsersAccessToken(models.Model):
+    user = models.ForeignKey(CustomUser, on_delete=models.DO_NOTHING, null=True, blank=True)
+    request_token = models.TextField(null=True, blank=True)
+    access_token = models.TextField(null=True, blank=True)
+
+    def __str__(self):
+        return str(self.user)
+
+
+class FyersUsersAccessToken(models.Model):
+    user = models.ForeignKey(CustomUser, on_delete=models.DO_NOTHING, null=True, blank=True)
+    auth_code = models.TextField(null=True, blank=True)
+    access_token = models.TextField(null=True, blank=True)
+
+    def __str__(self):
+        return str(self.user)

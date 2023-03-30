@@ -10,4 +10,6 @@ urlpatterns = [
     path(r'signup/', SignupView.as_view(), name="account_signup"),
     path(r'login/', LoginView.as_view(), name='account_login'),
     path(r'logout/', LogoutView.as_view(), name='account_logout'),
+    path(r'zerodha-auth/', ZerodhaAuthCallback.as_view(), name='zerodha_auth'),
+    path(r'fyers-auth/', FyersAuthCallback.as_view(), name='fyers_auth')
 ]
