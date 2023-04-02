@@ -10,6 +10,10 @@ from django.contrib import messages
 from django.http import HttpResponseRedirect
 from rest_framework.views import View
 from django.shortcuts import redirect
+from .models import *
+from rest_framework.views import APIView
+import requests as re
+import hashlib
 
 
 class SuccessView(TemplateView):
@@ -47,9 +51,20 @@ class LoginView(FormView):
                                 please try again')
             return HttpResponseRedirect(reverse_lazy('login_view'))
 
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data()
+        cv = dict()
+
+        brokers = OwnBrokersCredentials.objects.all()
+        cv['brokers'] = brokers
+
+        context['cv'] = cv
+
+        return context
+
 
 class LogoutView(View):
-    def get(self, request):
+    def post(self, request):
         logout(request)
         return redirect("/")
 
@@ -70,3 +85,52 @@ class MyProfileAPI(ModelViewSet):
         return JsonResponse(serializer.data, status=status.HTTP_201_CREATED, headers=headers)
 
 
+class ZerodhaAuthCallback(APIView):
+    def get(self, request, *args, **kwargs):
+        print(self.request.query_params)
+
+        request_token = self.request.query_params.get('request_token')
+        current_user = request.user
+        obj, created = ZerodhaUsersAccessToken.objects.update_or_create(user=current_user, request_token=request_token)
+        api_key = OwnBrokersCredentials.objects.filter(broker__short_title='zerodha').first()
+
+        zerodha_api_url = 'https://api.kite.trade'
+        hash_string = "{0} + {1} + {2}".format(api_key.api_key, request_token, api_key.api_key)
+        hash_string = hash_string.encode('utf-8')
+        print(hash_string)
+        request_hash = hashlib.sha256(hash_string).hexdigest()
+        request_payload = {
+            "request_token": request_token,
+            "checksum": request_hash,
+            "api_key": api_key.api_key
+        }
+        print(request_hash)
+        response = re.post(url=zerodha_api_url+'/session/token', data=request_payload)
+        print(response.json())
+        return JsonResponse(response.json())
+
+
+class FyersAuthCallback(APIView):
+    def get(self, request, *args, **kwargs):
+
+        auth_code = self.request.query_params.get('auth_code')
+        # print("auth code ", auth_code)
+
+        obj, created = FyersUsersAccessToken.objects.update_or_create(auth_code=auth_code)
+        api_key = OwnBrokersCredentials.objects.filter(broker__short_title='fyers').first()
+
+        fyers_api_url = 'https://api.fyers.in/api/v2/validate-authcode'
+        print(api_key.api_key, api_key.api_secret)
+        hash_string = "{0}:{1}".format(api_key.api_key, api_key.api_secret)
+        hash_string = hash_string.encode('utf-8')
+        request_hash = hashlib.sha256(hash_string).hexdigest()
+
+        request_payload = {
+            "grant_type": "authorization_code",
+            "appIdHash	": request_hash,
+            "code": auth_code
+        }
+        # print("hash ", request_hash)
+        response = re.post(url=fyers_api_url, data=request_payload)
+        print(response.json())
+        return JsonResponse(response.json())
