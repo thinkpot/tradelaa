@@ -14,6 +14,8 @@ from .models import *
 from rest_framework.views import APIView
 import requests as re
 import hashlib
+from fyers_api import accessToken
+from django.http import HttpResponse
 
 
 class SuccessView(TemplateView):
@@ -44,7 +46,9 @@ class LoginView(FormView):
 
         if user is not None:
             login(self.request, user)
-            return HttpResponseRedirect(reverse_lazy('dashboard:dashboard'))
+            cookie_login = HttpResponseRedirect(reverse_lazy('dashboard:dashboard'))
+            cookie_login.set_cookie('logged', True)
+            return cookie_login
 
         else:
             messages.add_message(self.request, messages.INFO, 'Wrong credentials\
@@ -66,7 +70,12 @@ class LoginView(FormView):
 class LogoutView(View):
     def post(self, request):
         logout(request)
-        return redirect("/")
+
+        broker_logout = redirect("/")
+        broker_logout.delete_cookie('access_token')
+        broker_logout.delete_cookie('referesh_token')
+
+        return broker_logout
 
 
 class MyProfileAPI(ModelViewSet):
@@ -114,23 +123,25 @@ class FyersAuthCallback(APIView):
     def get(self, request, *args, **kwargs):
 
         auth_code = self.request.query_params.get('auth_code')
-        # print("auth code ", auth_code)
-
         obj, created = FyersUsersAccessToken.objects.update_or_create(auth_code=auth_code)
         api_key = OwnBrokersCredentials.objects.filter(broker__short_title='fyers').first()
 
-        fyers_api_url = 'https://api.fyers.in/api/v2/validate-authcode'
-        print(api_key.api_key, api_key.api_secret)
-        hash_string = "{0}:{1}".format(api_key.api_key, api_key.api_secret)
-        hash_string = hash_string.encode('utf-8')
-        request_hash = hashlib.sha256(hash_string).hexdigest()
 
-        request_payload = {
-            "grant_type": "authorization_code",
-            "appIdHash	": request_hash,
-            "code": auth_code
-        }
-        # print("hash ", request_hash)
-        response = re.post(url=fyers_api_url, data=request_payload)
-        print(response.json())
-        return JsonResponse(response.json())
+        session = accessToken.SessionModel(
+            client_id=api_key.api_key,
+            secret_key=api_key.api_secret,
+            response_type='code',
+            grant_type='authorization_code',
+        )
+        session.set_token(auth_code)
+        response = session.generate_token()
+
+        cookie_response = JsonResponse(response, safe=False)
+        cookie_response.set_cookie('access_token', response['access_token'])
+        cookie_response.set_cookie('refresh_token', response['refresh_token'])
+
+        redirect_response = redirect(reverse_lazy('dashboard:dashboard'))
+        redirect_response.set_cookie('access_token', response['access_token'])
+        redirect_response.set_cookie('refresh_token', response['refresh_token'])
+
+        return redirect_response

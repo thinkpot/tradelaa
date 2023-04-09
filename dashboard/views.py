@@ -7,17 +7,34 @@ from .models import TickerName, TickerTypes, StrikeSideMaster, Trades
 from .serializers import TickerNameSerializer, CreateTradeFormSerializer
 from django.http import JsonResponse
 from .reports import basic_dashboard
+from django.core.exceptions import PermissionDenied
+from django.shortcuts import redirect
+from django.urls import reverse_lazy
+from .helpers import get_fyers_profile
+from accounts.models import *
 
 
 class DashboardViewSet(TemplateView):
     template_name = 'dashboard/index.html'
 
+    def dispatch(self, request, *args, **kwargs):
+        if (request.COOKIES.get('access_token') == None) and (request.COOKIES.get('logged') != 'True'):
+            return redirect(reverse_lazy('accounts:account_login'))
+        return super(DashboardViewSet, self).dispatch(request, *args, **kwargs)
+
     def get_context_data(self, **kwargs):
         context = super().get_context_data()
         data = dict()
+        cv = dict()
 
         basic_dashboard(data)
+        if self.request.COOKIES.get('access_token'):
+            get_fyers_profile(self.request, data)
 
+        brokers = OwnBrokersCredentials.objects.all()
+        cv['brokers'] = brokers
+
+        context['cv'] = cv
         context['data'] = data
         return context
 
@@ -107,3 +124,21 @@ class TickerNameViewSet(ModelViewSet):
         queryset = self.filter_queryset(self.get_queryset())
         serializer = self.get_serializer(queryset, many=True)
         return JsonResponse(serializer.data, safe=False)
+
+
+class UserProfile(TemplateView):
+    template_name = 'dashboard/account.html'
+
+    def dispatch(self, request, *args, **kwargs):
+        if (request.COOKIES.get('access_token') == None) and (request.COOKIES.get('logged') != 'True'):
+            return redirect(reverse_lazy('accounts:account_login'))
+        return super(UserProfile, self).dispatch(request, *args, **kwargs)
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data()
+        data = dict()
+        if (self.request.COOKIES.get('access_token') != None):
+            get_fyers_profile(self.request, data)
+
+        context['data'] = data
+        return context

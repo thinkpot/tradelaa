@@ -13,6 +13,22 @@
   {% include 'dashboard/common_css.html' %}
   {% block common_css %}
   {% endblock %}
+
+  <style>
+    .brokers-btn {
+      padding: 0.5rem;
+      height: 100%;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .brokers-btn > img{
+      width: 50px;
+      height: 50px;
+    }
+  </style>
 </head>
 
 <body>
@@ -24,7 +40,7 @@
           <div class="container">
             <div class="row flex-center min-vh-100 py-5">
               <div class="col-sm-10 col-md-8 col-lg-5 col-xl-5 col-xxl-3">
-                <a class="d-flex flex-center text-decoration-none mb-4" href="../../../index-2.html">
+                <a class="d-flex flex-center text-decoration-none mb-4" href="{% url 'landingpage:homepage' %}">
                   <div class="d-flex align-items-center fw-bolder fs-5 d-inline-block">
                     <img src="{% static 'assets/img/icons/logo-second.png' %}" alt="phoenix" width="58" />
                   </div>
@@ -42,14 +58,15 @@
                   <div class="col-md-6">
                     {% if broker.broker.short_title == 'zerodha' %}
                     <a href="https://kite.zerodha.com/connect/login?v=3&api_key={{broker.api_key}}">
-                      <div class="btn btn-phoenix-secondary w-100">
+                      <div class="btn btn-phoenix-secondary w-100 brokers-btn">
                         <img src="{% static 'assets/img/logos/zerodha.png' %}" width="50px">
                         <div class="div">Sign in with Zerodha</div>
                       </div>
                     </a>
                     {% elif broker.broker.short_title == 'fyers' %}
-                    <a href="https://api.fyers.in/api/v2/generate-authcode?client_id={{broker.api_key}}&redirect_uri=http://127.0.0.1:8000/accounts/fyers-auth/&response_type=code&state=sample_state">
-                      <div class="btn btn-phoenix-secondary w-100">
+                    <a
+                      href="https://api.fyers.in/api/v2/generate-authcode?client_id={{broker.api_key}}&redirect_uri=http://127.0.0.1:8000/accounts/fyers-auth/&response_type=code&state=sample_state">
+                      <div class="btn btn-phoenix-secondary w-100 brokers-btn">
                         <img src="{% static 'assets/img/logos/fyers.svg' %}" width="50px">
                         <div class="div">Sign in with fyers</div>
                       </div>
