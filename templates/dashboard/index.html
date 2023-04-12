@@ -28,13 +28,14 @@
           <div class="row g-4">
             <div class="col-12 col-xxl-6">
               <div class="mb-8">
-                <h2 class="mb-2">Your Dashboard</h2>
+                <h2 class="mb-2">{{data.name}} Dashboard</h2>
+
                 <h5 class="text-700 fw-semi-bold">Here’s what’s going with your trading right now</h5>
               </div>
               <div class="row align-items-center g-4">
                 <div class="col-12 col-md-auto">
-                  <div class="d-flex align-items-center"><img src="{% static 'assets/img/icons/illustrations/4l.png' %}" alt=""
-                      height="46" width="46" />
+                  <div class="d-flex align-items-center"><img src="{% static 'assets/img/icons/illustrations/4l.png' %}"
+                      alt="" height="46" width="46" />
                     <div class="ms-3">
                       <h4 class="mb-0">{{data.target_count}} Target Hits</h4>
                       <!-- <p class="text-800 fs--1 mb-0">Awating processing</p> -->
@@ -51,8 +52,8 @@
                   </div>
                 </div> -->
                 <div class="col-12 col-md-auto">
-                  <div class="d-flex align-items-center"><img src="{% static 'assets/img/icons/illustrations/2l.png' %}" alt=""
-                      height="46" width="46" />
+                  <div class="d-flex align-items-center"><img src="{% static 'assets/img/icons/illustrations/2l.png' %}"
+                      alt="" height="46" width="46" />
                     <div class="ms-3">
                       <h4 class="mb-0">{{data.sl_count}} Stop Loss Hits</h4>
                       <!-- <p class="text-800 fs--1 mb-0">Out of stock</p> -->
@@ -72,14 +73,15 @@
                     <option value="30">Last 30 Days</option>
                     <option value="1">Today</option>
 
-                  </select></div>
+                  </select>
+                </div>
               </div>
               <div class="echart-total-sales-chart" style="min-height:320px;width:100%"
                 data-echart-responsive="data-echart-responsive"></div>
             </div>
             <div class="col-12 col-xxl-6">
               <div class="row g-3">
-                
+
                 <!-- Target Hit Chart -->
                 <div class="col-12 col-md-6">
                   <div class="card h-100">
@@ -152,8 +154,8 @@
             </div>
           </div>
         </div>
-        
-      
+
+
         <div class="mx-n4 px-4 mx-lg-n6 px-lg-6 bg-white pt-6 pb-9 border-top border-300">
           <div class="row g-6">
             <div class="col-12 col-xl-6">
@@ -190,6 +192,62 @@
         </footer>
       </div>
     </div>
+
+    <!-- Modal-->
+
+    <div class="modal fade" id="verticallyCentered" tabindex="-1" data-bs-backdrop="static" aria-labelledby="verticallyCenteredModalLabel"
+      aria-hidden="true" style="display: none;">
+      <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="verticallyCenteredModalLabel">Hey Trader 👋 </h5>
+            <!-- <button class="btn p-1" type="button"
+              data-bs-dismiss="modal" aria-label="Close"><svg class="svg-inline--fa fa-xmark fs--1" aria-hidden="true"
+                focusable="false" data-prefix="fas" data-icon="xmark" role="img" xmlns="http://www.w3.org/2000/svg"
+                viewBox="0 0 320 512" data-fa-i2svg="">
+                <path fill="currentColor"
+                  d="M310.6 361.4c12.5 12.5 12.5 32.75 0 45.25C304.4 412.9 296.2 416 288 416s-16.38-3.125-22.62-9.375L160 301.3L54.63 406.6C48.38 412.9 40.19 416 32 416S15.63 412.9 9.375 406.6c-12.5-12.5-12.5-32.75 0-45.25l105.4-105.4L9.375 150.6c-12.5-12.5-12.5-32.75 0-45.25s32.75-12.5 45.25 0L160 210.8l105.4-105.4c12.5-12.5 32.75-12.5 45.25 0s12.5 32.75 0 45.25l-105.4 105.4L310.6 361.4z">
+                </path>
+              </svg>
+            </button> -->
+          </div>
+          <div class="modal-body">
+            <p class="text-700 lh-lg mb-0 pb-3">Lets Begin with first step by Connecting your broker </p>
+            <div class="row g-3">
+              {% for broker in cv.brokers %}
+              <div class="col-md-6">
+                {% if broker.broker.short_title == 'zerodha' %}
+                <a href="https://kite.zerodha.com/connect/login?v=3&api_key={{broker.api_key}}">
+                  <div class="btn btn-phoenix-secondary w-100 brokers-btn">
+                    <img src="{% static 'assets/img/logos/zerodha.png' %}" width="50px" >
+                    <div class="div">Connect Zerodha</div>
+                  </div>
+                </a>
+                {% elif broker.broker.short_title == 'fyers' %}
+                <a
+                  href="https://api.fyers.in/api/v2/generate-authcode?client_id={{broker.api_key}}&redirect_uri=http://127.0.0.1:8000/accounts/fyers-auth/&response_type=code&state=sample_state">
+                  <div class="btn btn-phoenix-secondary w-100 brokers-btn">
+                    <img src="{% static 'assets/img/logos/fyers.svg' %}" width="50px" height="50px">
+                    <div class="div">Connect fyers</div>
+                  </div>
+                </a>
+                {% endif %}
+              </div>
+              {% endfor %}
+            </div>
+          </div>
+          <!-- <div class="modal-footer">
+            <button class="btn btn-primary" type="button">Okay</button>
+            <button class="btn btn-outline-primary" type="button" data-bs-dismiss="modal">Cancel</button>
+          </div> -->
+        </div>
+      </div>
+    </div>
+
+    <!-- Modal End-->
+
+
+
     <script>
       var navbarTopShape = localStorage.getItem('phoenixNavbarTopShape');
       var navbarPosition = localStorage.getItem('phoenixNavbarPosition');
@@ -374,7 +432,15 @@
   {% endblock %}
 
   <script src="{% static 'assets/js/dashboard/basic_charts.js' %}"></script>
-  
+  <script>
+    $(window).on('load', function () {
+      var access_token = $.cookie("access_token");
+      if (access_token == null){
+        $("#verticallyCentered").modal('show')
+      }
+    })
+  </script>
+
 </body>
 
 </html>

@@ -31,18 +31,22 @@
                         </a>
                     </span>
                     <!-- parent pages-->
+                    
+                    {% if request.user.user_type.type == "SUPERUSER" %}
                     <span class="nav-item-wrapper">
                         <a class="nav-link label-1" href="{% url 'dashboard:create-analysis' %}" role="button" data-bs-toggle="" aria-expanded="false">
                             <div class="d-flex align-items-center">
                                 <span class="nav-link-icon">
                                     <span data-feather="help-circle"></span>
                                 </span>
+                                
                                 <span class="nav-link-text-wrapper">
                                     <span class="nav-link-text">Intraday Analysis</span>
                                 </span>
                             </div>
                         </a>
                     </span>
+                    {% endif %}
 
                     <span class="nav-item-wrapper">
                         <a class="nav-link label-1" href="{% url 'dashboard:trades_list' %}" role="button" data-bs-toggle="" aria-expanded="false">
@@ -549,9 +553,9 @@
                         </div>
                         <div class="overflow-auto scrollbar" style="height: 10rem;">
                             <ul class="nav d-flex flex-column mb-2 pb-1">
-                                <li class="nav-item"><a class="nav-link px-3" href="#!"> <span class="me-2 text-900"
+                                <li class="nav-item"><a class="nav-link px-3" href="{% url 'dashboard:profile' %}"> <span class="me-2 text-900"
                                             data-feather="user"></span>Profile</a></li>
-                                <li class="nav-item"><a class="nav-link px-3" href="#!"><span class="me-2 text-900"
+                                <li class="nav-item"><a class="nav-link px-3" href="{% url 'dashboard:dashboard' %}"><span class="me-2 text-900"
                                             data-feather="pie-chart"></span>Dashboard</a></li>
                                 <li class="nav-item"><a class="nav-link px-3" href="#!"> <span class="me-2 text-900"
                                             data-feather="lock"></span>Posts &amp; Activity</a></li>
@@ -935,7 +939,7 @@
                             <ul class="nav d-flex flex-column mb-2 pb-1">
                                 <li class="nav-item"><a class="nav-link px-3" href="#!"> <span class="me-2 text-900"
                                             data-feather="user"></span>Profile</a></li>
-                                <li class="nav-item"><a class="nav-link px-3" href="#!"><span class="me-2 text-900"
+                                <li class="nav-item"><a class="nav-link px-3" href="{% url 'dashboard:dashboard' %}"><span class="me-2 text-900"
                                             data-feather="pie-chart"></span>Dashboard</a></li>
                                 <li class="nav-item"><a class="nav-link px-3" href="#!"> <span class="me-2 text-900"
                                             data-feather="lock"></span>Posts &amp; Activity</a></li>
@@ -990,7 +994,7 @@
     <div class="collapse navbar-collapse navbar-top-collapse order-1 order-lg-0 justify-content-center"
         id="navbarToplCollapse">
         <ul class="navbar-nav" data-top-nav-dropdowns="data-top-nav-dropdowns">
-            <li class="nav-item dropdown"><a class="nav-link dropdown-toggle lh-1" href="#" role="button"
+            <li class="nav-item dropdown"><a class="nav-link dropdown-toggle lh-1" href="{% url 'dashboard:dashboard' %}" role="button"
                     data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" id="dashboards">Dashboard</a>
                 <div class="dropdown-menu navbar-dropdown-caret py-0" aria-labelledby="dashboards">
                     <div class="dropdown-menu-content py-2"><a class="dropdown-item fw-semi-bold" href="index-2.html">E
@@ -1528,7 +1532,7 @@
                     </div>
                     <div class="overflow-auto scrollbar" style="height: 10rem;">
                         <ul class="nav d-flex flex-column mb-2 pb-1">
-                            <li class="nav-item"><a class="nav-link px-3" href="#!"> <span class="me-2 text-900"
+                            <li class="nav-item"><a class="nav-link px-3" href="{% url 'dashboard:profile' %}"> <span class="me-2 text-900"
                                         data-feather="user"></span>Profile</a></li>
                             <li class="nav-item"><a class="nav-link px-3" href="#!"><span class="me-2 text-900"
                                         data-feather="pie-chart"></span>Dashboard</a></li>
@@ -1571,7 +1575,7 @@
     <div class="collapse navbar-collapse navbar-top-collapse order-1 order-lg-0 justify-content-center"
         id="navbarToplCollapse">
         <ul class="navbar-nav" data-top-nav-dropdowns="data-top-nav-dropdowns">
-            <li class="nav-item dropdown"><a class="nav-link dropdown-toggle lh-1" href="#" role="button"
+            <li class="nav-item dropdown"><a class="nav-link dropdown-toggle lh-1" href="{% url 'dashboard:dashboard' %}" role="button"
                     data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" id="dashboards">Dashboard</a>
                 <div class="dropdown-menu navbar-dropdown-caret py-0" aria-labelledby="dashboards">
                     <div class="dropdown-menu-content py-2"><a class="dropdown-item fw-semi-bold" href="index-2.html">E
@@ -2108,7 +2112,7 @@
                     </div>
                     <div class="overflow-auto scrollbar" style="height: 10rem;">
                         <ul class="nav d-flex flex-column mb-2 pb-1">
-                            <li class="nav-item"><a class="nav-link px-3" href="#!"> <span class="me-2 text-900"
+                            <li class="nav-item"><a class="nav-link px-3" href="{% url 'dashboard:profile' %}">> <span class="me-2 text-900"
                                         data-feather="user"></span>Profile</a></li>
                             <li class="nav-item"><a class="nav-link px-3" href="#!"><span class="me-2 text-900"
                                         data-feather="pie-chart"></span>Dashboard</a></li>

@@ -1,6 +1,6 @@
 from django.contrib import admin
 from django.urls import path, include
-from .views import DashboardViewSet, CreateTrade, TradesListViewSet, TickerNameViewSet, CreateTradeFormViewSet, EditTrade
+from .views import DashboardViewSet, CreateTrade, TradesListViewSet, TickerNameViewSet, CreateTradeFormViewSet, EditTrade, UserProfile
 from .micro_apis import SlTpData
 from rest_framework.routers import DefaultRouter
 
@@ -10,6 +10,7 @@ router.register(r'create-trade-form', CreateTradeFormViewSet, basename='create-t
 
 urlpatterns = [
     path(r'', DashboardViewSet.as_view(), name='dashboard'),
+    path(r'profile/', UserProfile.as_view(), name='profile'),
     path(r'create-trade/', CreateTrade.as_view(), name='create-analysis'),
     path(r'trade-list', TradesListViewSet.as_view(), name='trades_list'),
     path(r'edit-trade/<str:pk>/', EditTrade.as_view(), name='edit-trade'),
