@@ -212,7 +212,7 @@
             </button> -->
           </div>
           <div class="modal-body">
-            <p class="text-700 lh-lg mb-0">Lets Begin with first step by Connecting your broker </p>
+            <p class="text-700 lh-lg mb-0 pb-3">Lets Begin with first step by Connecting your broker </p>
             <div class="row g-3">
               {% for broker in cv.brokers %}
               <div class="col-md-6">
@@ -434,7 +434,10 @@
   <script src="{% static 'assets/js/dashboard/basic_charts.js' %}"></script>
   <script>
     $(window).on('load', function () {
-      $("#verticallyCentered").modal('show')
+      var access_token = $.cookie("access_token");
+      if (access_token == null){
+        $("#verticallyCentered").modal('show')
+      }
     })
   </script>
 
