@@ -9,4 +9,5 @@ class TraderAccountCreation(ModelViewSet):
     http_method_names = ['post', 'patch', 'put']
 
     # def get_queryset(self):
-    #
+    #     filters = {}
+    #     return self.get_queryset(**filters)

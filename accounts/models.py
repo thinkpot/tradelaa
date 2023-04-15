@@ -16,7 +16,7 @@ class UserType(models.Model):
 class CustomUser(AbstractBaseUser, PermissionsMixin):
     email = models.EmailField(unique=True)
     first_name = models.CharField(max_length=255, null=True, blank=True)
-    last_name = models.CharField(max_length=255, null=True, blank=True )
+    last_name = models.CharField(max_length=255, null=True, blank=True)
     phoneNumberRegex = RegexValidator(regex=r"^\+?1?\d{8,15}$")
     phone_number = models.CharField(validators=[phoneNumberRegex], max_length=16, unique=True, null=True, blank=True)
     is_staff = models.BooleanField(default=False)
@@ -66,3 +66,12 @@ class FyersUsersAccessToken(models.Model):
 
     def __str__(self):
         return str(self.user)
+
+
+class IsConnectedBroker(models.Model):
+    broker = models.ForeignKey(OwnBrokers, null=True, blank=True, on_delete=models.DO_NOTHING)
+    user = models.ForeignKey(CustomUser, null=True, blank=True, on_delete=models.DO_NOTHING)
+    broker_unique_id = models.CharField(max_length=255, blank=True, null=True)
+
+    def __str__(self):
+        return str(self.user.email)

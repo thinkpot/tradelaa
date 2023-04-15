@@ -40,7 +40,6 @@ function CreateTrade(form_element, url) {
     })
 }
 
-
 document.getElementById("create-trade-form-submit").addEventListener("click", function () {
     var create_trade_form_ele = document.getElementById("create-trade-form")
     var create_trade_url = "/dashboard/create-trade-form/"

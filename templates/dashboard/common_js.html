@@ -23,14 +23,22 @@
 <script src="{% static 'vendors/echarts/echarts.min.js' %}"></script>
 <script src="{% static 'vendors/chart/chart.min.js' %}"></script>
 <script src="{% static '../../../unpkg.com/%40googlemaps/markerclusterer%402.0.14/dist/index.min.js' %}"></script>
-<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyARdVcREeBK44lIWnv5-iPijKqvlSAVwbw&amp;callback=revenueMapInit" async></script>
+<script
+  src="https://maps.googleapis.com/maps/api/js?key=AIzaSyARdVcREeBK44lIWnv5-iPijKqvlSAVwbw&amp;callback=revenueMapInit"
+  async></script>
 <script src="{% static 'assets/js/ecommerce-dashboard.js' %}"></script>
 /** my added scripts **/
-<script src="https://code.jquery.com/jquery-3.6.3.js" integrity="sha256-nQLuAZGRRcILA+6dMBOvcRh5Pe310sBpanc6+QBmyVM=" crossorigin="anonymous"></script>
+<script src="https://code.jquery.com/jquery-3.6.3.js" integrity="sha256-nQLuAZGRRcILA+6dMBOvcRh5Pe310sBpanc6+QBmyVM="
+  crossorigin="anonymous"></script>
 <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/jquery-cookie/1.4.1/jquery.cookie.min.js"></script>
 <script src="{% static 'assets/js/create_analysis.js' %}"></script>
 <script src="{% static 'assets/js/edit_trade.js' %}"></script>
 <script src="{% static 'assets/js/dashboard_charts.js' %}"></script>
 
+<!-- Firebase -->
+<script src="https://www.gstatic.com/firebasejs/9.6.10/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/9.6.10/firebase-firestore-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/9.6.10/firebase-auth-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/9.6.10/firebase-database-compat.js"></script>
 
 {% endblock %}

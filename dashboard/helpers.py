@@ -13,3 +13,8 @@ def get_fyers_profile(request, data):
     data['id'] = response.get('data').get('fy_id')
     data['mobile_number'] = response.get('data').get('mobile_number')
     data['email_id'] = response.get('data').get('email_id')
+
+
+def dashboard_decider(request):
+    if request.user.user_type.type == 'RETAIL':
+        return 'dashboard/retail_dashboard.html'

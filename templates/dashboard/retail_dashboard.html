@@ -195,12 +195,12 @@
 
     <!-- Modal-->
 
-    <div class="modal fade"  data-bs-backdrop="static" id="verticallyCentered" tabindex="-1"  aria-labelledby="verticallyCenteredModalLabel" aria-hidden="true" style="display: none;">
+    <div class="modal fade" id="verticallyCentered" tabindex="-1" data-bs-backdrop="static" aria-labelledby="verticallyCenteredModalLabel"
+      aria-hidden="true" style="display: none;">
       <div class="modal-dialog modal-dialog-centered">
         <div class="modal-content">
           <div class="modal-header">
             <h5 class="modal-title" id="verticallyCenteredModalLabel">Hey Trader 👋 </h5>
-            <button class="btn p-1" type="button" data-bs-dismiss="modal" aria-label="Close"><span class="fas fa-times fs--1"></span>
             <!-- <button class="btn p-1" type="button"
               data-bs-dismiss="modal" aria-label="Close"><svg class="svg-inline--fa fa-xmark fs--1" aria-hidden="true"
                 focusable="false" data-prefix="fas" data-icon="xmark" role="img" xmlns="http://www.w3.org/2000/svg"
@@ -439,6 +439,8 @@
         $("#verticallyCentered").modal('show')
       }
     })
+
+    console.log("Retail Dashboard")
   </script>
 
 </body>

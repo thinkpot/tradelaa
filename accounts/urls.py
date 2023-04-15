@@ -3,7 +3,11 @@ from django.urls import path, include
 from dashboard.views import DashboardViewSet
 from .views import *
 from django.contrib.auth.views import PasswordResetView, PasswordResetDoneView, PasswordResetConfirmView, PasswordResetCompleteView
-from .api_views import TraderAccountCreation;''[]
+from .api_views import TraderAccountCreation
+from rest_framework import routers
+
+router = routers.DefaultRouter()
+router.register('create-trader-account', TraderAccountCreation, basename='create-traders')
 
 urlpatterns = [
     path(r'success/', SuccessView.as_view(), name="success_view"),
@@ -12,6 +16,6 @@ urlpatterns = [
     path(r'logout/', LogoutView.as_view(), name='account_logout'),
     path(r'zerodha-auth/', ZerodhaAuthCallback.as_view(), name='zerodha_auth'),
     path(r'fyers-auth/', FyersAuthCallback.as_view(), name='fyers_auth'),
-    #----------Accounts APIS---------------------------
-    path(r'create-trader-account/', TraderAccountCreation.as_view(), name='create-trader-account')
+    #------------------------Accounts APIS---------------------------
+
 ]
