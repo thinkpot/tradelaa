@@ -41,12 +41,12 @@ function search_stock(ticker){
                     list_item.setAttribute("class", "p-2")
                     list_item.setAttribute("id", this["id"])
                     list_item.setAttribute("aria-label", this["name"])
-        
+                    list_item.setAttribute("aria-valuetext", this["symbol"])
+                    
                     list_item.addEventListener("mouseover", function(){
                         console.log(list_item.getAttribute('aria-label'))
                         ticker_input_box.value = list_item.getAttribute('aria-label')
-                        $("#stock_symbol").value = this['symbol']
-                        
+                        $("#stock_symbol").val(list_item.getAttribute('aria-valuetext'))
                     })
 
                     item_text = this['name']

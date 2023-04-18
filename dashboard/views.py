@@ -10,7 +10,7 @@ from .reports import basic_dashboard
 from django.core.exceptions import PermissionDenied
 from django.shortcuts import redirect
 from django.urls import reverse_lazy
-from .helpers import get_fyers_profile
+from .helpers import get_fyers_profile, dashboard_decider
 from accounts.models import *
 
 
@@ -23,11 +23,13 @@ class DashboardViewSet(TemplateView):
         return super(DashboardViewSet, self).dispatch(request, *args, **kwargs)
 
     def get_context_data(self, **kwargs):
+        #Retriveing and storing data in context
         context = super().get_context_data()
         data = dict()
         cv = dict()
 
         basic_dashboard(data)
+
         if self.request.COOKIES.get('access_token'):
             get_fyers_profile(self.request, data)
 
@@ -101,7 +103,7 @@ class TradesListViewSet(TemplateView):
         context['ticker_types'] = TickerTypes.objects.all()
         context['trades'] = Trades.objects.all().order_by('-created_at')
         context['strike_sides'] = StrikeSideMaster.objects.all()
-        print(context['trades'])
+
         return context
 
 
@@ -141,4 +143,21 @@ class UserProfile(TemplateView):
             get_fyers_profile(self.request, data)
 
         context['data'] = data
+        return context
+
+
+class RetailTradesList(TemplateView):
+    template_name = 'dashboard/retail_trades.html'
+
+    def dispatch(self, request, *args, **kwargs):
+        if (request.COOKIES.get('access_token') == None) and (request.COOKIES.get('logged') != 'True'):
+            return redirect(reverse_lazy('accounts:account_login'))
+        return super(RetailTradesList, self).dispatch(request, *args, **kwargs)
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data()
+        context['ticker_types'] = TickerTypes.objects.all()
+        context['trades'] = Trades.objects.all().order_by('-created_at')
+        context['strike_sides'] = StrikeSideMaster.objects.all()
+
         return context

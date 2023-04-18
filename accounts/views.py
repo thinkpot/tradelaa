@@ -14,8 +14,9 @@ from .models import *
 from rest_framework.views import APIView
 import requests as re
 import hashlib
-from fyers_api import accessToken
+from fyers_api import accessToken, fyersModel
 from django.http import HttpResponse
+from django.db import transaction
 
 
 class SuccessView(TemplateView):
@@ -42,7 +43,7 @@ class LoginView(FormView):
 
     def form_valid(self, form):
         credentials = form.cleaned_data
-        user = authenticate(username=credentials['email'], password=credentials['password'])
+        user = authenticate(email=credentials['email'], password=credentials['password'])
 
         if user is not None:
             login(self.request, user)
@@ -143,5 +144,38 @@ class FyersAuthCallback(APIView):
         redirect_response = redirect(reverse_lazy('dashboard:dashboard'))
         redirect_response.set_cookie('access_token', response['access_token'])
         redirect_response.set_cookie('refresh_token', response['refresh_token'])
+
+        #Checking if already logged in earlier or not
+        fyers = fyersModel.FyersModel(client_id=api_key.api_key, token=response['access_token'])
+        fyers_respone = fyers.get_profile()
+
+        broker_unique_id = fyers_respone.get('data').get('fy_id')
+        broker_conn = IsConnectedBroker.objects.filter(broker_unique_id=broker_unique_id)
+        if not broker_conn.exists():
+            with transaction.atomic():
+                name_list = fyers_respone.get('data').get('name').split(' ')
+                new_user = CustomUser.objects.create(
+                    email=fyers_respone.get('data').get('email_id'),
+                    phone_number=fyers_respone.get('data').get('mobile_number'),
+                    first_name=name_list[0],
+                    last_name=name_list[1],
+                    user_type=UserType.objects.get(type='RETAIL'),
+                    is_active=True
+                )
+                new_user.set_password(broker_unique_id)
+                new_user.save()
+
+                new_user_broker = IsConnectedBroker.objects.create(
+                    broker=OwnBrokers.objects.get(short_title='fyers'),
+                    broker_unique_id=broker_unique_id,
+                    user=new_user
+                )
+                new_user_broker.save()
+
+            user_auth = authenticate(email=fyers_respone.get('data').get('email_id'), password=fyers_respone.get('data').get('fy_id'))
+            login(request, user_auth)
+        else:
+            user_auth = authenticate(email=fyers_respone.get('data').get('email_id'), password=fyers_respone.get('data').get('fy_id'))
+            login(request, user_auth)
 
         return redirect_response
