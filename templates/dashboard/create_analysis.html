@@ -14,30 +14,32 @@
     {% endblock %}
 
     <style>
-        .ticker-box-wrapper-main{
+        .ticker-box-wrapper-main {
             position: relative;
         }
-        .tickers-box{
+
+        .tickers-box {
             top: 40px;
             position: absolute;
             width: 100%;
             z-index: 999;
         }
-        .tickers-box ul{
-            
+
+        .tickers-box ul {
+
             overflow: auto;
             max-height: 150px;
             border-color: #3874ff;
             background-color: #373e53;
         }
-        .tickers-box ul li{
 
-        }
-        .tickers-box ul li:hover{
+        .tickers-box ul li {}
+
+        .tickers-box ul li:hover {
             background-color: white;
             color: black;
             cursor: pointer;
-            
+
         }
     </style>
 </head>
@@ -71,43 +73,48 @@
                             </div>
                             <div class="col-sm-6 col-md-8 ticker-box-wrapper-main">
                                 <div class="form-floating">
-                                    <input name="ticker_name" class="form-control" id="get_ticker_name" type="text" placeholder="Project title" />
+                                    <input name="ticker_name" class="form-control" id="get_ticker_name" type="text"
+                                        placeholder="Project title" />
                                     <input type="hidden" name="symbol" id="stock_symbol">
                                     <label for="floatingInputGrid">Search Stocks, Options</label>
                                 </div>
                                 <div class="tickers-box mt-1" id="tickers-box-wrapper">
                                     <ul style="list-style: none; padding:0;" id="ticker-ul">
-                            
+
                                     </ul>
                                 </div>
                             </div>
-                            
+
                             <div class="col-sm-6 col-md-4">
                                 <div class="form-floating">
-                                    <input name="market_price" class="form-control" id="floatingInputGrid" type="text" placeholder="Project title" />
+                                    <input name="market_price" class="form-control" id="floatingInputGrid" type="text"
+                                        placeholder="Project title" />
                                     <label for="floatingInputGrid">Market Price</label>
                                 </div>
                             </div>
 
                             <div class="col-sm-6 col-md-4">
                                 <div class="form-floating">
-                                    <input name="entry_price" class="form-control" id="floatingInputGrid" type="text" placeholder="Project title" />
+                                    <input name="entry_price" class="form-control" id="floatingInputGrid" type="text"
+                                        placeholder="Project title" />
                                     <label for="floatingInputGrid">Entry Price</label>
                                 </div>
                             </div>
                             <div class="col-sm-6 col-md-4">
                                 <div class="form-floating">
-                                    <input name="target_price" class="form-control" id="floatingInputGrid" type="text" placeholder="Project title" />
+                                    <input name="target_price" class="form-control" id="floatingInputGrid" type="text"
+                                        placeholder="Project title" />
                                     <label for="floatingInputGrid">Enter Target Price</label>
                                 </div>
                             </div>
                             <div class="col-sm-6 col-md-4">
                                 <div class="form-floating">
-                                    <input name="stop_loss" class="form-control" id="floatingInputGrid" type="text" placeholder="Project title" />
+                                    <input name="stop_loss" class="form-control" id="floatingInputGrid" type="text"
+                                        placeholder="Project title" />
                                     <label for="floatingInputGrid">Enter Stop Loss</label>
                                 </div>
                             </div>
-                            
+
                             <div class="col-sm-6 col-md-4" id="strike-side-wrapper">
                                 <div class="form-floating">
                                     <select name="strike_side" class="form-select" id="floatingSelectPrivacy">
@@ -118,14 +125,15 @@
                                     <label for="floatingSelectPrivacy">Strike Side</label>
                                 </div>
                             </div>
-                            
+
                             <div class="col-12 gy-6">
                                 <div class="row g-3 justify-content-end">
                                     <div class="col-md-6">
                                         <button class="btn btn-lg btn-phoenix-primary px-5">Clear</button>
                                     </div>
                                     <div class="col-md-6">
-                                        <button id="create-trade-form-submit" class="btn btn-lg btn-primary px-5 px-sm-15">Create Trade</button>
+                                        <button id="create-trade-form-submit"
+                                            class="btn btn-lg btn-primary px-5 px-sm-15">Create Trade</button>
                                     </div>
                                 </div>
                             </div>
@@ -133,6 +141,25 @@
                         </form>
                     </div>
                 </div>
+
+                <!-- TradingView Widget BEGIN -->
+                <div class="tradingview-widget-container">
+                    <div class="tradingview-widget-container__widget"></div>
+                    <script type="text/javascript"
+                        src="https://s3.tradingview.com/external-embedding/embed-widget-single-quote.js" async>
+                        
+                            {
+                                "symbol": "BINANCE:BTCUSDT",
+                                    "width": 350,
+                                        "colorTheme": "light",
+                                            "isTransparent": false,
+                                                "locale": "in"
+                            }
+                            
+                        </script>
+                </div>
+                
+                <!-- TradingView Widget END -->
                 {% include 'dashboard/common_footer.html' %}
                 {% block common_footer %}
                 {% endblock %}
@@ -193,7 +220,7 @@
                 navbarVertical.classList.add('navbar-darker');
             }
         </script>
-        
+
     </main>
     <!-- ===============================================-->
     <!--    End of Main Content-->
@@ -205,7 +232,7 @@
 
     <script src="{% static 'assets/js/dashboard/realtime_trade.js' %}"></script>
     <script src="{% static 'assets/js/create_trade.js' %}"></script>
-    
+
 </body>
 
 </html>
