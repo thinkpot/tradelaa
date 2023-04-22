@@ -41,11 +41,24 @@
 
         }
 
-        .tradingview-widget-container{
+        .tradingview-widget-container {
             width: 100%;
         }
-        .tradingview-widget-container iframe{
+
+        .tradingview-widget-container iframe {
             width: 100% !important;
+        }
+
+        .fixed-parametes-title {
+            position: relative;
+            top: -16px;
+            left: -15px;
+            background: cornflowerblue;
+            color: white;
+            padding: 2px;
+            display: inline-block;
+            font-weight: 900;
+            border-bottom-right-radius: 10px;
         }
     </style>
 </head>
@@ -84,7 +97,9 @@
                                     <!-- TradingView Widget BEGIN -->
                                     <div class="tradingview-widget-container">
                                         <div class="tradingview-widget-container__widget"></div>
-                                        <script type="text/javascript" src="https://s3.tradingview.com/external-embedding/embed-widget-single-quote.js" async>
+                                        <script type="text/javascript"
+                                            src="https://s3.tradingview.com/external-embedding/embed-widget-single-quote.js"
+                                            async>
                                                 {
                                                     "symbol": "NSE:{{t.symbol}}",
                                                         "width": "100%",
@@ -147,7 +162,8 @@
                                 <div class="row">
                                     <div class="col-md-6">
                                         <div class="d-flex justify-content-center p-2">
-                                            <div class="btn btn-phoenix-primary">AUTO ENTER</div>
+                                            <button type="button" data-bs-toggle="modal" class="btn btn-phoenix-primary"
+                                                data-bs-target="#verticallyCentered">AUTO ENTER</button>
                                         </div>
                                     </div>
                                     <div class="col-md-6">
@@ -220,6 +236,104 @@
             }
         </script>
     </main>
+
+    <div class="auto-trade-modal">
+        <!-- <button class="btn btn-primary" type="button" data-bs-toggle="modal"
+            data-bs-target="#verticallyCentered">Vertically centered modal</button> -->
+        <div class="modal fade" id="verticallyCentered" tabindex="-1" aria-labelledby="verticallyCenteredModalLabel"
+            aria-hidden="true" style="display: none;">
+            <div class="modal-dialog modal-dialog-centered w-100">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="verticallyCenteredModalLabel">Auto Execution</h5><button
+                            class="btn p-1" type="button" data-bs-dismiss="modal" aria-label="Close"><svg
+                                class="svg-inline--fa fa-xmark fs--1" aria-hidden="true" focusable="false"
+                                data-prefix="fas" data-icon="xmark" role="img" xmlns="http://www.w3.org/2000/svg"
+                                viewBox="0 0 320 512" data-fa-i2svg="">
+                                <path fill="currentColor"
+                                    d="M310.6 361.4c12.5 12.5 12.5 32.75 0 45.25C304.4 412.9 296.2 416 288 416s-16.38-3.125-22.62-9.375L160 301.3L54.63 406.6C48.38 412.9 40.19 416 32 416S15.63 412.9 9.375 406.6c-12.5-12.5-12.5-32.75 0-45.25l105.4-105.4L9.375 150.6c-12.5-12.5-12.5-32.75 0-45.25s32.75-12.5 45.25 0L160 210.8l105.4-105.4c12.5-12.5 32.75-12.5 45.25 0s12.5 32.75 0 45.25l-105.4 105.4L310.6 361.4z">
+                                </path>
+                            </svg><!-- <span class="fas fa-times fs--1"></span> Font Awesome fontawesome.com --></button>
+                    </div>
+                    <div class="modal-body">
+                        <!-- TradingView Widget BEGIN -->
+                        <div class="tradingview-widget-container">
+                            <div id="tradingview_9f46f"></div>
+                            <script type="text/javascript" src="https://s3.tradingview.com/tv.js"></script>
+                            <script type="text/javascript">
+                                new TradingView.widget(
+                                    {
+                                        "autosize": true,
+                                        "symbol": "NASDAQ:AAPL",
+                                        "interval": "D",
+                                        "timezone": "Etc/UTC",
+                                        "theme": "light",
+                                        "style": "1",
+                                        "locale": "in",
+                                        "toolbar_bg": "#f1f3f6",
+                                        "enable_publishing": false,
+                                        "allow_symbol_change": true,
+                                        "container_id": "tradingview_9f46f"
+                                    }
+                                );
+                            </script>
+                        </div>
+                        <!-- TradingView Widget END -->
+
+                        <h3 class="mb-5 mt-2">Trade Details</h3>
+                        <div class="trade-details-container">
+                            <div class="row">
+                                <div class="col-md-4">
+                                    <div class="fw-bold">Entry Price</div>
+                                    <div>Rs 999</div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="fw-bold">Stop Loss</div>
+                                    <div>Rs 999</div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="fw-bold">Entry Price</div>
+                                    <div>Rs 999</div>
+                                </div>
+                            </div>
+                            <hr>
+                            <div class="fs--5 mx-3 fixed-parametes-title">Editable Parameters</div>
+                            <div class="row">
+                                <div class="col-md-6 d-flex align-items-center">
+                                    <div class="fw-bold mx-3">Quantity</div>
+                                    <div><input class="form-control" type="number" min="1" minvalue="1" name="" id=""
+                                            placeholder="Quantity"></div>
+                                </div>
+                            </div>
+                            <hr>
+
+                            <div class="fs--5 mx-3 fixed-parametes-title">Fixed Parameters</div>
+                            <div class="row g-3 justify-content-space-evenly">
+                                <div class="col-md-6 d-flex align-items-center">
+                                    <div class="fw-bold mx-3">SL</div>
+                                    <div><input class="form-control" type="number" value="999" min="1" minvalue="1"
+                                            name="" id="" placeholder="Quantity" disabled></div>
+                                </div>
+                                <div class="col-md-6 d-flex align-items-center">
+                                    <div class="fw-bold mx-3">Target</div>
+                                    <div><input class="form-control" type="number" value="999" min="1" minvalue="1"
+                                            name="" id="" placeholder="Quantity" disabled></div>
+                                </div>
+                                <div class="col-md-6 d-flex align-items-center">
+                                    <div class="fw-bold mx-3">Entry</div>
+                                    <div><input class="form-control" type="number" value="999" min="1" minvalue="1"
+                                            name="" id="" placeholder="Quantity" disabled></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer"><button class="btn btn-primary" type="button">Okay</button><button
+                            class="btn btn-outline-primary" type="button" data-bs-dismiss="modal">Cancel</button></div>
+                </div>
+            </div>
+        </div>
+
+    </div>
     <!-- ===============================================-->
     <!--    End of Main Content-->
     <!-- ===============================================-->
