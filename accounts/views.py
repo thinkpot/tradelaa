@@ -43,9 +43,7 @@ class LoginView(FormView):
 
     def form_valid(self, form):
         credentials = form.cleaned_data
-        print(credentials)
         user = authenticate(email=credentials['email'], password=credentials['password'])
-        print(user)
         if user is not None:
             login(self.request, user)
             cookie_login = HttpResponseRedirect(reverse_lazy('dashboard:dashboard'))
