@@ -15,6 +15,7 @@ urlpatterns = [
     path(r'trade-list', TradesListViewSet.as_view(), name='trades_list'),
     path(r'edit-trade/<str:pk>/', EditTrade.as_view(), name='edit-trade'),
     path(r'r-trade-list', RetailTradesList.as_view(), name='retail-trade-list'),
+    path(r'funds', FundsViewSet.as_view(), name='funds'),
 
     #API
     # path(r'create-trade-form/<str:pk>/', CreateTradeFormViewSet.as_view({'post': 'create', 'patch': 'update', 'put': 'update'}), name='create-trade-form'),

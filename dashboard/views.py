@@ -161,3 +161,17 @@ class RetailTradesList(TemplateView):
         context['strike_sides'] = StrikeSideMaster.objects.all()
 
         return context
+
+
+class FundsViewSet(TemplateView):
+    template_name = 'dashboard/funds.html'
+
+    def dispatch(self, request, *args, **kwargs):
+        if (request.COOKIES.get('access_token') == None) and (request.COOKIES.get('logged') != 'True'):
+            return redirect(reverse_lazy('accounts:account_login'))
+        return super(FundsViewSet, self).dispatch(request, *args, **kwargs)
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data()
+
+        return context
