@@ -4,7 +4,7 @@ from rest_framework.viewsets import ModelViewSet
 from rest_framework.permissions import AllowAny, IsAuthenticated
 from rest_framework import status
 from .models import TickerName, TickerTypes, StrikeSideMaster, Trades
-from .serializers import TickerNameSerializer, CreateTradeFormSerializer
+from .serializers import TickerNameSerializer, CreateTradeFormSerializer, TradeListAPISerializer
 from django.http import JsonResponse
 from .reports import basic_dashboard
 from django.core.exceptions import PermissionDenied
@@ -175,3 +175,20 @@ class FundsViewSet(TemplateView):
         context = super().get_context_data()
 
         return context
+
+
+class TradesListAPI(ModelViewSet):
+    serializer_class = TradeListAPISerializer
+    permission_classes = [AllowAny]
+    queryset = Trades.objects.all()
+    http_method_names = ['get']
+
+    def get_queryset(self):
+        query_params = self.request.query_params
+        filters = {'{}'.format(key): value for key, value in query_params.items()}
+        return self.queryset.filter(**filters)
+
+    def list(self, request, *args, **kwargs):
+        queryset = self.filter_queryset(self.get_queryset())
+        serializer = self.get_serializer(queryset, many=True)
+        return JsonResponse(serializer.data, safe=False)

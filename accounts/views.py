@@ -139,10 +139,12 @@ class FyersAuthCallback(APIView):
         cookie_response = JsonResponse(response, safe=False)
         cookie_response.set_cookie('access_token', response['access_token'])
         cookie_response.set_cookie('refresh_token', response['refresh_token'])
+        cookie_response.set_cookie('broker', "fyers")
 
         redirect_response = redirect(reverse_lazy('dashboard:dashboard'))
         redirect_response.set_cookie('access_token', response['access_token'])
         redirect_response.set_cookie('refresh_token', response['refresh_token'])
+        redirect_response.set_cookie('broker', "fyers")
 
         #Checking if already logged in earlier or not
         fyers = fyersModel.FyersModel(client_id=api_key.api_key, token=response['access_token'])

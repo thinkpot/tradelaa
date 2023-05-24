@@ -30,3 +30,9 @@ class SlTpDataSerializer(serializers.ModelSerializer):
     class Meta:
         model = Trades
         fields = '__all__'
+
+
+class TradeListAPISerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Trades
+        fields = '__all__'
