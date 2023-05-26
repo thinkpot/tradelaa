@@ -98,11 +98,18 @@
 
                 <div class="row gx-6 gy-3 mb-4 align-items-center">
                     <div class="col-auto">
-                        <h2 class="mb-0">Trades List</h2>
+                        <h3 class="mb-0">Todays Trades</h3>
                     </div>
                 </div>
 
+                <hr>
+
                 <div class="row g-3" id="trades_main_wrapper">
+                    <!-- <div class="row gx-6 gy-3 mb-3 align-items-center">
+                        <div class="col-auto">
+                            <h3 class="mb-0">Todays Trades</h3>
+                        </div>
+                    </div> -->
                     {% for t in trades%}
                     <div class="col-md-4">
                         <div class="card h-100 hover-actions-trigger">
@@ -117,7 +124,7 @@
 
                                     <!-- TradingView Widget BEGIN -->
                               
-                                    <div class="tradingview-widget-container">
+                                    <!-- <div class="tradingview-widget-container">
                                         <div class="tradingview-widget-container__widget"></div>
                                         <div class="tradingview-widget-copyright"><a href="https://in.tradingview.com/"
                                                 rel="noopener nofollow" target="_blank"><span class="blue-text">Track
@@ -133,26 +140,26 @@
                                                                     "locale": "in"
                                                 }
                                             </script>
-                                    </div>
-                                    <!-- TradingView Widget END -->
+                                    </div> -->
+
                                     <!-- TradingView Widget END -->
                                 </div>
 
                                 <div class="d-flex align-items-center mb-4">
                                     <p class="fw-bold mb-0 lh-1">Entry Price : <span
-                                            class="ms-1 text-1100">{{t.entry_price}}$</span>
+                                            class="ms-1 text-1100">₹ {{t.entry_price}}</span>
                                     </p>
                                 </div>
 
                                 <div class="d-flex align-items-center mb-4">
                                     <p class="fw-bold mb-0 lh-1">Stop Loss : <span
-                                            class="ms-1 text-1100">{{t.stop_loss}}$</span>
+                                            class="ms-1 text-1100">₹ {{t.stop_loss}}</span>
                                     </p>
                                 </div>
 
                                 <div class="d-flex align-items-center mb-4">
                                     <p class="fw-bold mb-0 lh-1">Target Price : <span
-                                            class="ms-1 text-1100">{{t.target_price}}$</span>
+                                            class="ms-1 text-1100">₹ {{t.target_price}}</span>
                                     </p>
                                 </div>
 
@@ -170,7 +177,7 @@
                                     <div class="col-md-7">
                                         <div class="d-flex flex-column mt-5">
                                             <p class="mb-0 fw-bold fs--1">Started :<span
-                                                    class="fw-semi-bold text-600 ms-1"> 17th Nov. 2020</span></p>
+                                                    class="fw-semi-bold text-600 ms-1"> {{t.trade_date_time.date}}</span></p>
                                             <p class="mb-0 fw-bold fs--1">Max Loss :<span
                                                     class="fw-semi-bold text-600 ms-1 text-danger " id="loss_{{t.id}}">
                                                     400$</span></p>
@@ -184,6 +191,9 @@
                                             <p class="mb-0 fw-bold fs--1">RR :<span class="fw-semi-bold text-600 ">
                                                     1:2</span></p>
 
+                                                    <p class="mb-0 fw-bold fs--1">SIDE :<span class="fw-semi-bold text-600 ">
+                                                        {{t.strike_side}}</span></p>
+    
                                         </div>
                                     </div>
                                 </div>
@@ -295,7 +305,7 @@
                         <!-- TradingView Widget END -->
 
 
-                        <h3 class="mb-5 mt-2">Trade Details</h3>
+                        <h3 class="mb-5 mt-2">Trade Details <span id="modal_trade_symbol" aria-label=""></span></h3>
                         <div class="trade-details-container">
                             <div class="row">
                                 <div class="col-md-4">
@@ -332,7 +342,8 @@
                                 </div>
                                 <div class="col-6">
                                     <input id="quantity_param" class="form-control quantity_param" type="number" min="1"
-                                        minvalue="1" name="" id="" placeholder="Quantity">
+                                        minvalue="1" name="" placeholder="Quantity">
+                                        <input type="hidden" name="" id="modal_side_input" value="">
                                 </div>
                             </div>
 
@@ -370,10 +381,10 @@
 
                                 <div class="col-md-12 d-flex align-items-center">
                                     <div class="row w-100">
-                                        <div class="col-md-6">
+                                        <div class="col-6">
                                             <div class="fw-bold mx-3">Entry Price</div>
                                         </div>
-                                        <div class="col-md-6">
+                                        <div class="col-6">
                                             <input class="form-control trade-input-controls" type="number" value=""
                                                 min="1" minvalue="1" name="" id="modal_entry_price_input"
                                                 placeholder="Quantity" disabled>
@@ -391,7 +402,7 @@
                             <label class="form-check-label" for="manualswtich">Switch to Manual</label>
                         </div>
                         <div>
-                            <button class="btn btn-success" type="button">Execute</button>
+                            <button class="btn btn-success" type="button" id="execute_trade_final">Execute</button>
                             <button class="btn btn-outline-primary" type="button"
                                 data-bs-dismiss="modal">Cancel</button>
                         </div>
@@ -411,6 +422,7 @@
     {% endblock %}
 
     <script src="{% static 'assets/js/dashboard/user_realtime_trade.js' %}"></script>
+    <script src="{% static 'assets/js/dashboard/execute_trade.js' %}"></script>
 
     <script>
         $("#inlineRadio1").change(function () {
@@ -459,6 +471,10 @@
             $("#modal_entry_price_input").val(response[0]['entry_price'])
             $("#modal_target_price_input").val(response[0]['target_price'])
             $("#modal_stop_price_input").val(response[0]['stop_loss'])
+            $("#modal_side_input").val(response[0]['strike_side'])
+            
+            $("#modal_trade_symbol").text(response[0]['symbol'])
+            $("#modal_trade_symbol").attr("aria-label", response[0]['symbol'])
         }
 
 
@@ -502,7 +518,6 @@
                 trade_max_loss = 0
             }
 
-
             return [trade_max_profit, trade_max_loss]
         }
 
@@ -513,9 +528,7 @@
         })
 
         $(".quantity_param").on("change", function () {
-            console.log("changing quantity")
             let pl = calculate_max_profit_dynamic($(this).val())
-            console.log("pl ", pl)
             $(".modal_max_profit").text(pl[0])
             $(".modal_max_loss").text(pl[1])
         })

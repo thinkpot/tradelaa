@@ -7,6 +7,7 @@ from rest_framework.routers import DefaultRouter
 router = DefaultRouter()
 router.register(r'sl-tp-data', SlTpData, basename='sl-tp-data')
 router.register(r'create-trade-form', CreateTradeFormViewSet, basename='create-trade-form')
+router.register(r'user-trade', UserTradeViewSet, basename='create-user-trade')
 
 urlpatterns = [
     path(r'', DashboardViewSet.as_view(), name='dashboard'),

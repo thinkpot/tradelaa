@@ -1,3 +1,4 @@
+let api_key = 'NV1BMN088J-100';
 
 function updateFunds() {
     $.ajax({
@@ -7,9 +8,11 @@ function updateFunds() {
             "Authorization":api_key+":"+getCookie("access_token")
         },
         success: function(res){
-            $(".funds-amount").text(res['fund_limit'][0]['equityAmount'])
-            $(".funds-avail-amount").text(res['fund_limit'][7]['equityAmount'])
-            $(".funds-profit-amount").text(res['fund_limit'][4]['equityAmount'])
+            console.log(res)
+            $(".funds-amount").text("₹ "+ Number(res['fund_limit'][7]['equityAmount']).toFixed(2))
+            $(".clear-balance").text("₹ "+ Number(res['fund_limit'][0]['equityAmount']).toFixed(2))
+            $(".real-profit-loss").text("₹ "+ Number(res['fund_limit'][3]['equityAmount']).toFixed(2))
+            $(".demat-balance").text("₹ "+ Number(res['fund_limit'][1]['equityAmount']).toFixed(2))
         }
     })
 }
@@ -17,15 +20,3 @@ function updateFunds() {
 $(document).ready(function () {
     updateFunds()
 })
-
-
-function AddFundsFyers(){
-    /* First Validate UPI */
-    $.ajax({
-        type:"POST",
-        url:"https://api.fyers.in/fundtransfer/dev/validate-vpa"
-    })
-}
-
-
-

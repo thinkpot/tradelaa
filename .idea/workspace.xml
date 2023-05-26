@@ -6,16 +6,22 @@
   <component name="ChangeListManager">
     <list default="true" id="408eb77d-e234-4528-89fc-80489c32ddd9" name="Changes" comment="">
       <change afterPath="$PROJECT_DIR$/../connecttraders/templates/ipo_scanner/ipo_scanner.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/tradelaa/serializers.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../connecttraders/connect_traders/urls.py" beforeDir="false" afterPath="$PROJECT_DIR$/../connecttraders/connect_traders/urls.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../connecttraders/static/css/style.css" beforeDir="false" afterPath="$PROJECT_DIR$/../connecttraders/static/css/style.css" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../connecttraders/templates/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/../connecttraders/templates/index.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/accounts/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/accounts/views.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/dashboard/models.py" beforeDir="false" afterPath="$PROJECT_DIR$/dashboard/models.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/dashboard/serializers.py" beforeDir="false" afterPath="$PROJECT_DIR$/dashboard/serializers.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/dashboard/urls.py" beforeDir="false" afterPath="$PROJECT_DIR$/dashboard/urls.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/dashboard/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/dashboard/views.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/dashboard/common_navbar.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/dashboard/common_navbar.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/static/assets/js/dashboard/funds.js" beforeDir="false" afterPath="$PROJECT_DIR$/static/assets/js/dashboard/funds.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/static/assets/js/dashboard/user_realtime_trade.js" beforeDir="false" afterPath="$PROJECT_DIR$/static/assets/js/dashboard/user_realtime_trade.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/dashboard/common_retail_js.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/dashboard/common_retail_js.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/dashboard/create_analysis.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/dashboard/create_analysis.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/dashboard/funds.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/dashboard/funds.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/templates/dashboard/retail_trades.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/dashboard/retail_trades.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/tradelaa/settings.py" beforeDir="false" afterPath="$PROJECT_DIR$/tradelaa/settings.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -25,8 +31,8 @@
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
       <list>
-        <option value="Python Script" />
         <option value="HTML File" />
+        <option value="Python Script" />
       </list>
     </option>
   </component>
