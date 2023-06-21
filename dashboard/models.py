@@ -1,10 +1,18 @@
 from django.db import models
+from accounts.models import CustomUser
 import datetime
 
 STRIKE_SIDE = (
     ("PUT", "Put"),
     ("CALL", "Call"),
 )
+
+TRADE_STATUS = [
+        ('not_started', 'NOT STARTED'),
+        ('executed', 'EXECUTED'),
+        ('in_progress', 'IN PROGRESS'),
+        ('completed', 'COMPLETED'),
+    ]
 
 
 class TickerTypes(models.Model):
@@ -45,6 +53,16 @@ class Trades(models.Model):
     is_target = models.BooleanField(null=True, blank=True)
     is_exit_between = models.BooleanField(null=True, blank=True)
     symbol = models.CharField(max_length=255, null=True, blank=True)
+    trade_date_time = models.DateTimeField(null=True, blank=True)
 
     def __str__(self):
         return str(self.ticker_name)
+
+
+class UserTrades(models.Model):
+    trade = models.ForeignKey(Trades, null=True, blank=True, on_delete=models.DO_NOTHING)
+    user = models.ForeignKey(CustomUser, null=True, blank=True, on_delete=models.DO_NOTHING)
+    status = models.CharField(choices=TRADE_STATUS, null=True, blank=True, max_length=255)
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+    order_id = models.CharField(max_length=255, null=True, blank=True)

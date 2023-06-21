@@ -1,0 +1,439 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en-US" dir="ltr">
+
+<meta http-equiv="content-type" content="text/html;charset=utf-8" /><!-- /Added by HTTrack -->
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>WhaleStreet</title>
+    {% include 'dashboard/common_css.html' %}
+    {% block common_css %}
+    {% endblock %}
+
+    <style>
+        .funds-icon {
+            font-size: 3rem;
+        }
+
+        .funds-img {
+            width: 100px;
+            position: absolute;
+            right: 0;
+            top: 0;
+            transform: scaleX(-1);
+            padding: 0px;
+            margin-top: 9px;
+        }
+
+        .balance-item {
+            display: flex;
+            justify-content: space-between;
+        }
+
+        .fixed-add-amount {
+            background-color: #E5FAF5;
+            border: 1pt solid #00D09C;
+            border-radius: 20px;
+            padding: 5px 10px !important;
+            margin: 2px !important;
+            color: #7C7E8C;
+        }
+
+        .fixed-amount-wrapper {
+            font-size: 12px;
+        }
+    </style>
+</head>
+
+<body>
+    <!-- ===============================================-->
+    <!--    Main Content-->
+    <!-- ===============================================-->
+    <main class="main" id="top">
+        <div class="container-fluid px-0" data-layout="container">
+            {% include 'dashboard/common_navbar.html' %}
+            {% block common_navbar %}
+            {% endblock %}
+
+
+            <div class="content">
+                <div class="row">
+                    <div class="col-12 col-md-6">
+                        <div class="card mb-3 ">
+                            <div class="card-body">
+                                <h5 class="card-title mb-4">Balance Available <i class="fa fa-money-bill"></i></h5>
+                                <!-- <img src="{% static 'assets/img/funds.png' %}" class="funds-img" alt=""> -->
+                                <div class="d-flex">
+                                    <!-- <h3 class="mb-0">₹</h3> -->
+                                    <h3 class="mb-0 text-secondary funds-amount px-1">0.00</h3>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="balance-table">
+                            <div class="balance-item my-3 mx-2">
+                                <div class="balance-text">Demat Total Balance</div>
+                                <div class="balance-amount fw-bold demat-balance">₹ 0.00</div>
+                            </div>
+                            <div class="balance-item my-3 mx-2">
+                                <div class="balance-text">Realized Profit & Loss</div>
+                                <div class="balance-amount fw-bold real-profit-loss">₹ 0.00</div>
+                            </div>
+                            <div class="balance-item my-3 mx-2">
+                                <div class="balance-text">Clear Balance</div>
+                                <div class="balance-amount fw-bold clear-balance">₹ 0.00</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-12 col-md-6">
+                        <div class="card">
+                            <div class="card-header">
+                                <div class="d-flex justify-content-between">
+                                    <div class="fw-bold">Add Funds</div>
+
+                                </div>
+                            </div>
+                            <div class="card-body">
+                                <div class="d-flex justify-content-between">
+                                    <div>Enter Amount</div>
+                                    <div><input class="form-control"
+                                            style="background: #E5FAF5; color: #00D09C; font-weight: 700; width: 100px;"
+                                            type="number" name="" id="" value=""></div>
+                                </div>
+                                <div class="d-flex fixed-amount-wrapper mt-3">
+                                    <div style="margin-left: auto;" class="d-flex">
+                                        <div class="p-2 fixed-add-amount">+ 100</div>
+                                        <div class="p-2 fixed-add-amount">+ 1000</div>
+                                        <div class="p-2 fixed-add-amount">+ 10000</div>
+                                    </div>
+                                </div>
+                                <div class="d-flex justify-content-between mt-5">
+                                    <div>
+                                        Enter UPI ID 
+                                        <img width="50px" src="https://img.uxwing.com/wp-content/themes/uxwing/download/brands-social-media/upi-icon.svg" alt="">
+                                    </div>
+                                    <div><input class="form-control"
+                                            style="background: #E5FAF5; color: #00D09C; font-weight: 700;"
+                                            type="text" name="" id=""></div>
+                                </div>
+                            </div>
+                            
+                            <div class="card-footer">
+                                <div class="btn btn-success w-100" style="background-color: #00D09C;">Add Money</div>
+                            </div>
+                        </div>
+
+                    </div>
+
+                </div>
+
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="card mt-5">
+                            <div class="card-header">
+                                <h5 class="card-title">All Transactions</h5>
+                            </div>
+                            <div class="card-body">
+                                <div id="tableExample"
+                                    data-list="{&quot;valueNames&quot;:[&quot;name&quot;,&quot;email&quot;,&quot;age&quot;],&quot;page&quot;:5,&quot;pagination&quot;:true}">
+                                    <div class="table-responsive">
+                                        <table class="table table-sm fs--1 mb-0">
+                                            <thead>
+                                                <tr>
+                                                    <th class="sort border-top ps-3" data-sort="name">Name</th>
+                                                    <th class="sort border-top" data-sort="email">Email</th>
+                                                    <th class="sort border-top" data-sort="age">Age</th>
+                                                    <th class="sort text-end align-middle pe-0 border-top" scope="col">
+                                                        ACTION</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody class="list">
+                                                <tr>
+                                                    <td class="align-middle ps-3 name">Anna</td>
+                                                    <td class="align-middle email">anna@example.com</td>
+                                                    <td class="align-middle age">18</td>
+                                                    <td class="align-middle white-space-nowrap text-end pe-0">
+                                                        <div class="font-sans-serif btn-reveal-trigger position-static">
+                                                            <button
+                                                                class="btn btn-sm dropdown-toggle dropdown-caret-none transition-none btn-reveal fs--2"
+                                                                type="button" data-bs-toggle="dropdown"
+                                                                data-boundary="window" aria-haspopup="true"
+                                                                aria-expanded="false" data-bs-reference="parent"><svg
+                                                                    class="svg-inline--fa fa-ellipsis fs--2"
+                                                                    aria-hidden="true" focusable="false"
+                                                                    data-prefix="fas" data-icon="ellipsis" role="img"
+                                                                    xmlns="http://www.w3.org/2000/svg"
+                                                                    viewBox="0 0 448 512" data-fa-i2svg="">
+                                                                    <path fill="currentColor"
+                                                                        d="M120 256C120 286.9 94.93 312 64 312C33.07 312 8 286.9 8 256C8 225.1 33.07 200 64 200C94.93 200 120 225.1 120 256zM280 256C280 286.9 254.9 312 224 312C193.1 312 168 286.9 168 256C168 225.1 193.1 200 224 200C254.9 200 280 225.1 280 256zM328 256C328 225.1 353.1 200 384 200C414.9 200 440 225.1 440 256C440 286.9 414.9 312 384 312C353.1 312 328 286.9 328 256z">
+                                                                    </path>
+                                                                </svg><!-- <span class="fas fa-ellipsis-h fs--2"></span> Font Awesome fontawesome.com --></button>
+                                                            <div class="dropdown-menu dropdown-menu-end py-2"><a
+                                                                    class="dropdown-item" href="#!">View</a><a
+                                                                    class="dropdown-item" href="#!">Export</a>
+                                                                <div class="dropdown-divider"></div><a
+                                                                    class="dropdown-item text-danger"
+                                                                    href="#!">Remove</a>
+                                                            </div>
+                                                        </div>
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td class="align-middle ps-3 name">Homer</td>
+                                                    <td class="align-middle email">homer@example.com</td>
+                                                    <td class="align-middle age">35</td>
+                                                    <td class="align-middle white-space-nowrap text-end pe-0">
+                                                        <div class="font-sans-serif btn-reveal-trigger position-static">
+                                                            <button
+                                                                class="btn btn-sm dropdown-toggle dropdown-caret-none transition-none btn-reveal fs--2"
+                                                                type="button" data-bs-toggle="dropdown"
+                                                                data-boundary="window" aria-haspopup="true"
+                                                                aria-expanded="false" data-bs-reference="parent"><svg
+                                                                    class="svg-inline--fa fa-ellipsis fs--2"
+                                                                    aria-hidden="true" focusable="false"
+                                                                    data-prefix="fas" data-icon="ellipsis" role="img"
+                                                                    xmlns="http://www.w3.org/2000/svg"
+                                                                    viewBox="0 0 448 512" data-fa-i2svg="">
+                                                                    <path fill="currentColor"
+                                                                        d="M120 256C120 286.9 94.93 312 64 312C33.07 312 8 286.9 8 256C8 225.1 33.07 200 64 200C94.93 200 120 225.1 120 256zM280 256C280 286.9 254.9 312 224 312C193.1 312 168 286.9 168 256C168 225.1 193.1 200 224 200C254.9 200 280 225.1 280 256zM328 256C328 225.1 353.1 200 384 200C414.9 200 440 225.1 440 256C440 286.9 414.9 312 384 312C353.1 312 328 286.9 328 256z">
+                                                                    </path>
+                                                                </svg><!-- <span class="fas fa-ellipsis-h fs--2"></span> Font Awesome fontawesome.com --></button>
+                                                            <div class="dropdown-menu dropdown-menu-end py-2"><a
+                                                                    class="dropdown-item" href="#!">View</a><a
+                                                                    class="dropdown-item" href="#!">Export</a>
+                                                                <div class="dropdown-divider"></div><a
+                                                                    class="dropdown-item text-danger"
+                                                                    href="#!">Remove</a>
+                                                            </div>
+                                                        </div>
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td class="align-middle ps-3 name">Oscar</td>
+                                                    <td class="align-middle email">oscar@example.com</td>
+                                                    <td class="align-middle age">52</td>
+                                                    <td class="align-middle white-space-nowrap text-end pe-0">
+                                                        <div class="font-sans-serif btn-reveal-trigger position-static">
+                                                            <button
+                                                                class="btn btn-sm dropdown-toggle dropdown-caret-none transition-none btn-reveal fs--2"
+                                                                type="button" data-bs-toggle="dropdown"
+                                                                data-boundary="window" aria-haspopup="true"
+                                                                aria-expanded="false" data-bs-reference="parent"><svg
+                                                                    class="svg-inline--fa fa-ellipsis fs--2"
+                                                                    aria-hidden="true" focusable="false"
+                                                                    data-prefix="fas" data-icon="ellipsis" role="img"
+                                                                    xmlns="http://www.w3.org/2000/svg"
+                                                                    viewBox="0 0 448 512" data-fa-i2svg="">
+                                                                    <path fill="currentColor"
+                                                                        d="M120 256C120 286.9 94.93 312 64 312C33.07 312 8 286.9 8 256C8 225.1 33.07 200 64 200C94.93 200 120 225.1 120 256zM280 256C280 286.9 254.9 312 224 312C193.1 312 168 286.9 168 256C168 225.1 193.1 200 224 200C254.9 200 280 225.1 280 256zM328 256C328 225.1 353.1 200 384 200C414.9 200 440 225.1 440 256C440 286.9 414.9 312 384 312C353.1 312 328 286.9 328 256z">
+                                                                    </path>
+                                                                </svg><!-- <span class="fas fa-ellipsis-h fs--2"></span> Font Awesome fontawesome.com --></button>
+                                                            <div class="dropdown-menu dropdown-menu-end py-2"><a
+                                                                    class="dropdown-item" href="#!">View</a><a
+                                                                    class="dropdown-item" href="#!">Export</a>
+                                                                <div class="dropdown-divider"></div><a
+                                                                    class="dropdown-item text-danger"
+                                                                    href="#!">Remove</a>
+                                                            </div>
+                                                        </div>
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td class="align-middle ps-3 name">Emily</td>
+                                                    <td class="align-middle email">emily@example.com</td>
+                                                    <td class="align-middle age">30</td>
+                                                    <td class="align-middle white-space-nowrap text-end pe-0">
+                                                        <div class="font-sans-serif btn-reveal-trigger position-static">
+                                                            <button
+                                                                class="btn btn-sm dropdown-toggle dropdown-caret-none transition-none btn-reveal fs--2"
+                                                                type="button" data-bs-toggle="dropdown"
+                                                                data-boundary="window" aria-haspopup="true"
+                                                                aria-expanded="false" data-bs-reference="parent"><svg
+                                                                    class="svg-inline--fa fa-ellipsis fs--2"
+                                                                    aria-hidden="true" focusable="false"
+                                                                    data-prefix="fas" data-icon="ellipsis" role="img"
+                                                                    xmlns="http://www.w3.org/2000/svg"
+                                                                    viewBox="0 0 448 512" data-fa-i2svg="">
+                                                                    <path fill="currentColor"
+                                                                        d="M120 256C120 286.9 94.93 312 64 312C33.07 312 8 286.9 8 256C8 225.1 33.07 200 64 200C94.93 200 120 225.1 120 256zM280 256C280 286.9 254.9 312 224 312C193.1 312 168 286.9 168 256C168 225.1 193.1 200 224 200C254.9 200 280 225.1 280 256zM328 256C328 225.1 353.1 200 384 200C414.9 200 440 225.1 440 256C440 286.9 414.9 312 384 312C353.1 312 328 286.9 328 256z">
+                                                                    </path>
+                                                                </svg><!-- <span class="fas fa-ellipsis-h fs--2"></span> Font Awesome fontawesome.com --></button>
+                                                            <div class="dropdown-menu dropdown-menu-end py-2"><a
+                                                                    class="dropdown-item" href="#!">View</a><a
+                                                                    class="dropdown-item" href="#!">Export</a>
+                                                                <div class="dropdown-divider"></div><a
+                                                                    class="dropdown-item text-danger"
+                                                                    href="#!">Remove</a>
+                                                            </div>
+                                                        </div>
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td class="align-middle ps-3 name">Jara</td>
+                                                    <td class="align-middle email">jara@example.com</td>
+                                                    <td class="align-middle age">25</td>
+                                                    <td class="align-middle white-space-nowrap text-end pe-0">
+                                                        <div class="font-sans-serif btn-reveal-trigger position-static">
+                                                            <button
+                                                                class="btn btn-sm dropdown-toggle dropdown-caret-none transition-none btn-reveal fs--2"
+                                                                type="button" data-bs-toggle="dropdown"
+                                                                data-boundary="window" aria-haspopup="true"
+                                                                aria-expanded="false" data-bs-reference="parent"><svg
+                                                                    class="svg-inline--fa fa-ellipsis fs--2"
+                                                                    aria-hidden="true" focusable="false"
+                                                                    data-prefix="fas" data-icon="ellipsis" role="img"
+                                                                    xmlns="http://www.w3.org/2000/svg"
+                                                                    viewBox="0 0 448 512" data-fa-i2svg="">
+                                                                    <path fill="currentColor"
+                                                                        d="M120 256C120 286.9 94.93 312 64 312C33.07 312 8 286.9 8 256C8 225.1 33.07 200 64 200C94.93 200 120 225.1 120 256zM280 256C280 286.9 254.9 312 224 312C193.1 312 168 286.9 168 256C168 225.1 193.1 200 224 200C254.9 200 280 225.1 280 256zM328 256C328 225.1 353.1 200 384 200C414.9 200 440 225.1 440 256C440 286.9 414.9 312 384 312C353.1 312 328 286.9 328 256z">
+                                                                    </path>
+                                                                </svg><!-- <span class="fas fa-ellipsis-h fs--2"></span> Font Awesome fontawesome.com --></button>
+                                                            <div class="dropdown-menu dropdown-menu-end py-2"><a
+                                                                    class="dropdown-item" href="#!">View</a><a
+                                                                    class="dropdown-item" href="#!">Export</a>
+                                                                <div class="dropdown-divider"></div><a
+                                                                    class="dropdown-item text-danger"
+                                                                    href="#!">Remove</a>
+                                                            </div>
+                                                        </div>
+                                                    </td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                    <div class="d-flex flex-between-center pt-3">
+                                        <div class="pagination d-none">
+                                            <li class="active"><button class="page" type="button" data-i="1"
+                                                    data-page="5">1</button></li>
+                                            <li><button class="page" type="button" data-i="2" data-page="5">2</button>
+                                            </li>
+                                            <li><button class="page" type="button" data-i="3" data-page="5">3</button>
+                                            </li>
+                                        </div>
+                                        <p class="mb-0 fs--1">
+                                            <span class="d-none d-sm-inline-block" data-list-info="data-list-info">1 to
+                                                5 <span class="text-600"> Items of </span>15</span>
+                                            <span class="d-none d-sm-inline-block"> — </span>
+                                            <a class="fw-semi-bold" href="#!" data-list-view="*">
+                                                View all
+                                                <svg class="svg-inline--fa fa-angle-right ms-1"
+                                                    data-fa-transform="down-1" aria-hidden="true" focusable="false"
+                                                    data-prefix="fas" data-icon="angle-right" role="img"
+                                                    xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 512"
+                                                    data-fa-i2svg="" style="transform-origin: 0.25em 0.5625em;">
+                                                    <g transform="translate(128 256)">
+                                                        <g transform="translate(0, 32)  scale(1, 1)  rotate(0 0 0)">
+                                                            <path fill="currentColor"
+                                                                d="M64 448c-8.188 0-16.38-3.125-22.62-9.375c-12.5-12.5-12.5-32.75 0-45.25L178.8 256L41.38 118.6c-12.5-12.5-12.5-32.75 0-45.25s32.75-12.5 45.25 0l160 160c12.5 12.5 12.5 32.75 0 45.25l-160 160C80.38 444.9 72.19 448 64 448z"
+                                                                transform="translate(-128 -256)"></path>
+                                                        </g>
+                                                    </g>
+                                                </svg><!-- <span class="fas fa-angle-right ms-1" data-fa-transform="down-1"></span> Font Awesome fontawesome.com -->
+                                            </a><a class="fw-semi-bold d-none" href="#!" data-list-view="less">
+                                                View Less
+                                                <svg class="svg-inline--fa fa-angle-right ms-1"
+                                                    data-fa-transform="down-1" aria-hidden="true" focusable="false"
+                                                    data-prefix="fas" data-icon="angle-right" role="img"
+                                                    xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 512"
+                                                    data-fa-i2svg="" style="transform-origin: 0.25em 0.5625em;">
+                                                    <g transform="translate(128 256)">
+                                                        <g transform="translate(0, 32)  scale(1, 1)  rotate(0 0 0)">
+                                                            <path fill="currentColor"
+                                                                d="M64 448c-8.188 0-16.38-3.125-22.62-9.375c-12.5-12.5-12.5-32.75 0-45.25L178.8 256L41.38 118.6c-12.5-12.5-12.5-32.75 0-45.25s32.75-12.5 45.25 0l160 160c12.5 12.5 12.5 32.75 0 45.25l-160 160C80.38 444.9 72.19 448 64 448z"
+                                                                transform="translate(-128 -256)"></path>
+                                                        </g>
+                                                    </g>
+                                                </svg><!-- <span class="fas fa-angle-right ms-1" data-fa-transform="down-1"></span> Font Awesome fontawesome.com -->
+                                            </a>
+                                        </p>
+                                        <div class="d-flex">
+                                            <button style="background-color: #00D09C;" class="btn btn-sm btn-primary disabled" type="button"
+                                                data-list-pagination="prev" disabled=""><span>Previous</span></button>
+                                            <button style="background-color: #00D09C;" class="btn btn-sm btn-primary px-4 ms-2" type="button"
+                                                data-list-pagination="next"><span>Next</span></button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+        <script>
+            var navbarTopShape = localStorage.getItem('phoenixNavbarTopShape');
+            var navbarPosition = localStorage.getItem('phoenixNavbarPosition');
+            var body = document.querySelector('body');
+            var navbarDefault = document.querySelector('#navbarDefault');
+            var navbarTopNew = document.querySelector('#navbarTopNew');
+            var navbarSlim = document.querySelector('#navbarSlim');
+            var navbarTopSlimNew = document.querySelector('#navbarTopSlimNew');
+
+            var documentElement = document.documentElement;
+            var navbarVertical = document.querySelector('.navbar-vertical');
+
+            if (navbarTopShape === 'slim' && navbarPosition === 'vertical') {
+                navbarDefault.remove();
+                navbarTopNew.remove();
+                navbarTopSlimNew.remove();
+                navbarSlim.style.display = 'block';
+                navbarVertical.style.display = 'inline-block';
+                body.classList.add('nav-slim');
+            } else if (navbarTopShape === 'slim' && navbarPosition === 'horizontal') {
+                navbarDefault.remove();
+                navbarVertical.remove();
+                navbarTopNew.remove();
+                navbarSlim.remove();
+                navbarTopSlimNew.removeAttribute('style');
+                body.classList.add('nav-slim');
+            } else if (navbarTopShape === 'default' && navbarPosition === 'horizontal') {
+                navbarDefault.remove();
+                navbarSlim.remove();
+                navbarVertical.remove();
+                navbarTopSlimNew.remove();
+                navbarTopNew.removeAttribute('style');
+                documentElement.classList.add('navbar-horizontal')
+
+            } else {
+                body.classList.remove('nav-slim');
+                navbarSlim.remove();
+                navbarTopNew.remove();
+                navbarTopSlimNew.remove();
+                navbarDefault.removeAttribute('style');
+                navbarVertical.removeAttribute('style');
+            }
+
+            var navbarTopStyle = localStorage.getItem('phoenixNavbarTopStyle');
+            var navbarTop = document.querySelector('.navbar-top');
+            if (navbarTopStyle === 'darker') {
+                navbarTop.classList.add('navbar-darker');
+            }
+
+            var navbarVerticalStyle = localStorage.getItem('phoenixNavbarVerticalStyle');
+            var navbarVertical = document.querySelector('.navbar-vertical');
+            if (navbarVerticalStyle === 'darker') {
+                navbarVertical.classList.add('navbar-darker');
+            }
+        </script>
+
+    </main>
+    <!-- ===============================================-->
+    <!--    End of Main Content-->
+    <!-- ===============================================-->
+
+    {% include 'dashboard/common_js.html' %}
+    {% block common_js %}
+    {% endblock %}
+
+    <script src="{% static 'assets/js/dashboard/realtime_trade.js' %}"></script>
+    <script src="{% static 'assets/js/create_trade.js' %}"></script>
+    <script src="{% static 'assets/js/dashboard/funds.js' %}"></script>
+
+</body>
+
+</html>

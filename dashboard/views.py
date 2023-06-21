@@ -1,10 +1,12 @@
+import datetime
+
 from django.shortcuts import render
 from django.views.generic import TemplateView
 from rest_framework.viewsets import ModelViewSet
 from rest_framework.permissions import AllowAny, IsAuthenticated
 from rest_framework import status
-from .models import TickerName, TickerTypes, StrikeSideMaster, Trades
-from .serializers import TickerNameSerializer, CreateTradeFormSerializer
+from .models import TickerName, TickerTypes, StrikeSideMaster, Trades, UserTrades
+from .serializers import TickerNameSerializer, CreateTradeFormSerializer, TradeListAPISerializer, UserTradeDetailsSerializer
 from django.http import JsonResponse
 from .reports import basic_dashboard
 from django.core.exceptions import PermissionDenied
@@ -157,7 +159,59 @@ class RetailTradesList(TemplateView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data()
         context['ticker_types'] = TickerTypes.objects.all()
-        context['trades'] = Trades.objects.all().order_by('-created_at')
+        context['trades'] = Trades.objects.filter(trade_date_time__date=datetime.datetime.now().date()).order_by('-created_at')
         context['strike_sides'] = StrikeSideMaster.objects.all()
+        return context
+
+
+class FundsViewSet(TemplateView):
+    template_name = 'dashboard/funds.html'
+
+    def dispatch(self, request, *args, **kwargs):
+        if (request.COOKIES.get('access_token') == None) and (request.COOKIES.get('logged') != 'True'):
+            return redirect(reverse_lazy('accounts:account_login'))
+        return super(FundsViewSet, self).dispatch(request, *args, **kwargs)
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data()
 
         return context
+
+
+class TradesListAPI(ModelViewSet):
+    serializer_class = TradeListAPISerializer
+    permission_classes = [AllowAny]
+    queryset = Trades.objects.all()
+    http_method_names = ['get']
+
+    def get_queryset(self):
+        query_params = self.request.query_params
+        filters = {'{}'.format(key): value for key, value in query_params.items()}
+        return self.queryset.filter(**filters)
+
+    def list(self, request, *args, **kwargs):
+        queryset = self.filter_queryset(self.get_queryset())
+        serializer = self.get_serializer(queryset, many=True)
+        return JsonResponse(serializer.data, safe=False)
+
+
+class UserTradeViewSet(ModelViewSet):
+    serializer_class = UserTradeDetailsSerializer
+    permission_classes = [IsAuthenticated]
+    queryset = UserTrades.objects.all()
+
+    def get_queryset(self):
+        query_params = self.request.query_params
+        filters = {'{}'.format(key): value for key, value in query_params.items()}
+        return self.queryset.filter(**filters)
+
+    def list(self, request, *args, **kwargs):
+        queryset = self.filter_queryset(self.get_queryset())
+        serializer = self.get_serializer(queryset, many=True)
+        return JsonResponse({"type": "success", "detail": serializer.data}, safe=False)
+
+    def create(self, request, *args, **kwargs):
+        serializer = self.get_serializer(data=request.data, context={"request":request})
+        serializer.is_valid(raise_exception=True)
+        self.perform_create(serializer)
+        return JsonResponse({"type": "success", "detail": serializer.data}, status=status.HTTP_201_CREATED)

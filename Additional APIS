@@ -1,0 +1,21 @@
+“Funds Request API for Fyers”
+
+
+// Add funds
+Add funds :-  https://api.fyers.in/fundtransfer/dev/payment/create
+Payload :- {
+    "account_ifsc": "ICIC0002355",
+    "account_no": "235501506155",
+    "account_upi": "8800311305@icici",
+    "amount": 51,
+    "bank_id": "1002",
+    "payment_gateway": "razorpay",
+    "payment_method": "upi",
+    "platform": "web"
+}
+
+//Validate UPI
+Validate:- https://api.fyers.in/fundtransfer/dev/validate-vpa
+Payload:- {
+    "vpa":"8800311305@icici"
+}
