@@ -462,7 +462,6 @@
 
         }
 
-
         function set_trade_modal_value(response) {
             $(".modal_entry_price").text(response[0]['entry_price'])
             $(".modal_target_price").text(response[0]['target_price'])
@@ -477,7 +476,6 @@
             $("#modal_trade_symbol").attr("aria-label", response[0]['symbol'])
         }
 
-
         function dynamic_execute_modal(id) {
             $.ajax({
                 type: 'GET',
@@ -486,7 +484,6 @@
                 },
                 url: '/dashboard/get-trades/',
                 success: function (response) {
-                    console.log("Response ->", response)
                     set_trade_modal_value(response)
                 }
             })
@@ -499,9 +496,6 @@
             let stop_price = $("#modal_stop_price_input").val()
             let trade_max_profit;
             let trade_max_loss;
-
-            console.log("Target price ", target_price)
-            console.log("Entry price ", entry_price)
 
             if (Number(target_price) > Number(entry_price)) {
                 console.log("Long trade")

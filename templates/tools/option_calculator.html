@@ -1,0 +1,318 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en-US" dir="ltr">
+
+<meta http-equiv="content-type" content="text/html;charset=utf-8" /><!-- /Added by HTTrack -->
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>WhaleStreet</title>
+    {% include 'dashboard/common_css.html' %}
+    {% block common_css %}
+    {% endblock %}
+</head>
+
+<body>
+    <!-- ===============================================-->
+    <!--    Main Content-->
+    <!-- ===============================================-->
+    <main class="main" id="top">
+        <div class="container-fluid px-0" data-layout="container">
+
+            <div class="content">
+
+                <div class="container">
+                    <div class="title" style="text-align: center; margin-bottom: 20px;">
+                        <h1 style="font-family: 'Inter', sans-serif;" class="flex-center text-secondary">Option Value
+                            Calculator
+                        </h1>
+                        <div class="mb-3 text-primary" style="font-size: 16px; ">Calculate your options value.</div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-6">
+                            <form action="" id="option_form">
+                                <div class="calculator p-4">
+
+
+                                    <div class="row">
+
+                                        <div class="col-md-6">
+                                            <span class="fw-bold fs-1">Underlying Price</span>
+                                        </div>
+
+                                        <div class="col-md-6 d-flex mb-3 flex-row justify-content-end">
+                                            <span>
+                                                <input id="underlying_price_input" type="text"
+                                                    class="form-control form-control-sm bg-light text-dark p-2 mb-3 w-autop-2 bg-200 border border-400 p-2 position-relative "
+                                                    placeholder="1000" name="underlying_price_input" value="0">
+                                            </span>
+                                            <span class="p-2 position-relative mx-auto">₹</span>
+                                        </div>
+
+                                        <div class="col-md-12 ">
+                                            <input for="underlying_price_input"
+                                                class="form-range form-range-slider mb-1 " id="customRange1"
+                                                type="range" min="0" max="100000" value="1000"
+                                                style="width: 100%; transition:opacity .5s;">
+                                            <div class="d-flex " style="font-size: 14px; color: #666; bottom: 20%;">
+                                                <span>₹ 0</span>
+                                                <span style="margin-left: auto;">₹ 100,000</span>
+                                            </div>
+                                        </div>
+
+                                    </div>
+
+                                    <div class="row" style="margin-top: 5%;">
+                                        <div class="col-md-6">
+                                            <span class="fw-bold fs-1">Strike Price</span>
+                                        </div>
+                                        <div class="col-md-6 d-flex mb-3 flex-row justify-content-end">
+                                            <span>
+                                                <input name="strike_price_input" id="strike_price_input" type="text"
+                                                    class="form-control form-control-sm bg-light text-dark p-2 mb-3 w-autop-2 bg-200 border border-400 p-2 position-relative "
+                                                    placeholder="5000"  value="0"></span> <span
+                                                class="p-2 position-relative mx-auto"
+                                                style="margin-right: 200%;">₹</span>
+                                        </div>
+                                        <div class="col-md-12  ">
+                                            <input for="strike_price_input" class="form-range form-range-slider mb-1 "
+                                                id="customRange1" type="range" min="0" max="100000" value="0"
+                                                style="width: 100%; transition:opacity .5s;">
+                                            <div class="d-flex " style="font-size: 14px; color: #666;">
+                                                <span>₹ 0</span>
+                                                <span style="margin-left: auto;">₹ 100,000</span>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="row" style="margin-top: 5%;">
+                                        <div class="col-md-6">
+                                            <span class="fw-bold fs-1">Volatility</span>
+                                        </div>
+                                        <div class="col-md-6 d-flex mb-3 flex-row justify-content-end">
+                                            <span><input name="volatility_input" id="volatility_input" type="text"
+                                                    class="form-control form-control-sm bg-light text-dark p-2 mb-3 w-autop-2 bg-200 border border-400 p-2 position-relative "
+                                                    placeholder="60"  value="0"></span> <span
+                                                class="p-2 position-relative mx-auto">%</span>
+                                        </div>
+                                        <div class="col-md-12  ">
+                                            <input for="volatility_input" class="form-range form-range-slider mb-1"
+                                                id="customRange1" type="range" min="0" max="250" value="10"
+                                                style="width: 100%; transition:opacity .5s;">
+                                            <div class="d-flex " style="font-size: 14px; color: #666;">
+                                                <span>0 %</span>
+                                                <span style="margin-left: auto;">250 %</span>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="row" style="margin-top: 5%;">
+                                        <div class="col-md-6">
+                                            <span class="fw-bold fs-1">Interest Rate</span>
+                                        </div>
+                                        <div class="col-md-6 d-flex mb-3 flex-row justify-content-end">
+                                            <span><input name="interest_rate_input" id="interest_rate_input" type="text"
+                                                    class="form-control form-control-sm bg-light text-dark p-2 mb-3 w-autop-2 bg-200 border border-400 p-2 position-relative "
+                                                    placeholder="5"  value="0"></span> <span
+                                                class="p-2 position-relative mx-auto">%</span>
+                                        </div>
+                                        <div class="col-md-12  ">
+                                            <input for="interest_rate_input" class="form-range form-range-slider mb-1 "
+                                                id="customRange1" type="range" min="0" max="10" value="5"
+                                                style="width: 100%; transition:opacity .5s;">
+                                            <div class="d-flex " style="font-size: 14px; color: #666;">
+                                                <span>0 %</span>
+                                                <span style="margin-left: auto;">10 %</span>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="row" style="margin-top: 5%;">
+                                        <div class="col-md-6">
+                                            <span class="fw-bold fs-1">Dividend Yield</span>
+                                        </div>
+                                        <div class="col-md-6 d-flex mb-3 flex-row justify-content-end">
+                                            <span><input name="dividend_yield_input" id="dividend_yield_input"
+                                                    type="text"
+                                                    class="form-control form-control-sm bg-light text-dark p-2 mb-3 w-autop-2 bg-200 border border-400 p-2 position-relative "
+                                                    placeholder="10"  value="0"></span> <span
+                                                class="p-2 position-relative mx-auto">%</span>
+                                        </div>
+                                        <div class="col-md-12  ">
+                                            <input for="dividend_yield_input" class="form-range form-range-slider mb-1 "
+                                                id="customRange1" type="range" min="0" max="20" value="5"
+                                                style="width: 100%; transition:opacity .5s;">
+                                            <div class="d-flex " style="font-size: 14px; color: #666;">
+                                                <span>0 %</span>
+                                                <span style="margin-left: auto;">20%</span>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="row" style="margin-top: 5%;">
+                                        <div class="col-md-6">
+                                            <span class="fw-bold fs-1">Days to expiration</span>
+                                        </div>
+                                        <div class="col-md-6 d-flex mb-3 flex-row justify-content-end">
+                                            <span><input name="day_exp_input" id="day_exp_input" type="text"
+                                                    class="form-control form-control-sm bg-light text-dark p-2 mb-3 w-autop-2 bg-200 border border-400 p-2 position-relative "
+                                                    placeholder="156"  value="0"></span> <span
+                                                class="p-2 position-relative mx-auto">Days &nbsp; &nbsp;</span>
+                                        </div>
+                                        <div class="col-md-12  ">
+                                            <input for="day_exp_input" class="form-range form-range-slider mb-1 "
+                                                id="customRange1" type="range" min="0" max="365" value="10"
+                                                style="width: 100%; transition:opacity .5s;">
+                                            <div class="d-flex " style="font-size: 14px; color: #666;">
+                                                <span>0 days</span>
+                                                <span style="margin-left: auto;">365 days</span>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <!-- <div class="row" style="margin-top: 5%;">
+                                        <div class="col-6">
+                                            <div class="start-date">
+                                                <span class="fw-bold fs-1">Start Date</span>
+                                                <input type="date" class="form-control" name="start_date">
+                                            </div>
+                                        </div>
+                                        <div class="col-6">
+                                            <div class="end-date">
+                                                <span class="fw-bold fs-1">End Date</span>
+                                                <input type="date" class="form-control" name="end_date">
+                                            </div>
+                                        </div>
+                                            
+                                        
+                                    </div> -->
+
+
+                                </div>
+                            </form>
+                        </div>
+
+                        <div class="col-md-6">
+                            <div class="container position-sticky  shadow" style="top:100px">
+                                <div class="options_main_wrapper bg-white p-3 ">
+                                    <div class="toprow row text-center my-1">
+                                        <div class="callprice col-6">
+                                            <h3 class="text-success">Call price</h3>
+                                            <h4 id="call_premium">0</h4>
+                                        </div>
+                                        <div class="putprice col-6">
+                                            <h3 class="text-danger">Put price</h3>
+                                            <h4 id="put_premium">0</h4>
+                                        </div>
+                                    </div>
+                                    <hr>
+
+                                    <div class="details text-center">
+                                        <div class="row1 row my-3">
+                                            <div class="item col-4">
+                                                <h4 id="call_delta">0</h4>
+                                                <div>Call delta</div>
+                                            </div>
+                                            <div class="item col-4">
+                                                <h4 id="put_delta">0</h4>
+                                                <div>Put delta</div>
+                                            </div>
+                                            <div class="item col-4">
+                                                <h4 id="gamma">0</h4>
+                                                <div>Gamma</div>
+                                            </div>
+                                        </div>
+                                        <div class="row2 row my-3">
+                                            <div class="item col-4">
+                                                <h4 id="vega">0</h4>
+                                                <div>Vega</div>
+                                            </div>
+                                            <div class="item col-4">
+                                                <h4 id="call_theta">0</h4>
+                                                <div>Call Theta</div>
+                                            </div>
+                                            <div class="item col-4">
+                                                <h4 id="put_theta">0</h4>
+                                                <div>Put Theta</div>
+                                            </div>
+                                        </div>
+                                        <div class="row3 row my-3">
+                                            <div class="item col-4">
+                                                <h4 id="call_rho">0</h4>
+                                                <div>Call Rho</div>
+                                            </div>
+                                            <div class="item col-4">
+                                                <h4 id="put_rho">0</h4>
+                                                <div>Put Rho</div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="options_img">
+                                    <img class="img-fluid" src="{% static 'assets/img/stock_market_think.png' %}" alt=""
+                                        style="transform: scaleX(-1);">
+                                </div>
+                            </div>
+
+                        </div>
+
+                    </div>
+                </div>
+
+
+            </div>
+        </div>
+        
+    </main>
+    <!-- ===============================================-->
+    <!--    End of Main Content-->
+    <!-- ===============================================-->
+
+    {% include 'dashboard/common_js.html' %}
+    {% block common_js %}
+    {% endblock %}
+
+    <script>
+
+        function get_option_data() {
+            data = $("#option_form").serialize()
+            $.ajax({
+                type: 'POST',
+                data: data,
+                url: '/tools/api/option-calculator/',
+                success: function (res) {
+                    let response_data = res.data
+                    $('#call_premium').text(Number(response_data['call_premium']).toFixed(3) )
+                    $("#put_premium").text(Number(response_data['put_premium']).toFixed(3) )
+                    $('#call_delta').text(Number(response_data['call_delta']).toFixed(3) )
+                    $('#put_delta').text(Number(response_data['put_delta']).toFixed(3) )
+                    $('#gamma').text(Number(response_data['gamma']).toFixed(3) )
+                    $('#vega').text(Number(response_data['vega']).toFixed(3) )
+                    $('#call_theta').text(Number(response_data['call_theta']).toFixed(3) )
+                    $('#put_theta').text(Number(response_data['put_theta']).toFixed(3) )
+                    $('#call_rho').text(Number(response_data['call_rho']).toFixed(3) )
+                    $('#put_rho').text(Number(response_data['put_rho']).toFixed(3) )
+                }
+
+            })
+        }
+        $(".form-range-slider").on("change", function () {
+            var connected_input = $(this).attr('for')
+            $("#" + connected_input).val($(this).val())
+
+            get_option_data()
+        })
+
+        $('.form-control').on('change', function(){
+            get_option_data()
+        })
+
+
+    </script>
+</body>
+
+</html>
