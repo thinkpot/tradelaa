@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="408eb77d-e234-4528-89fc-80489c32ddd9" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/../connecttraders/backtesting/urls.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../connecttraders/templates/backtesting/backtesting.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../connecttraders/connect_traders/urls.py" beforeDir="false" afterPath="$PROJECT_DIR$/../connecttraders/connect_traders/urls.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../connecttraders/templates/landingpages/index1.html" beforeDir="false" afterPath="$PROJECT_DIR$/../connecttraders/templates/landingpages/index1.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/accounts/managers.py" beforeDir="false" afterPath="$PROJECT_DIR$/accounts/managers.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/accounts/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/accounts/views.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/dashboard/urls.py" beforeDir="false" afterPath="$PROJECT_DIR$/dashboard/urls.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/dashboard/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/dashboard/views.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/static/assets/js/dashboard/broker_functions.js" beforeDir="false" afterPath="$PROJECT_DIR$/static/assets/js/dashboard/broker_functions.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/static/assets/js/dashboard/execute_trade.js" beforeDir="false" afterPath="$PROJECT_DIR$/static/assets/js/dashboard/execute_trade.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/static/assets/js/dashboard/realtime_trade.js" beforeDir="false" afterPath="$PROJECT_DIR$/static/assets/js/dashboard/realtime_trade.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/account/login.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/account/login.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/account/signup.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/account/signup.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/dashboard/create_analysis.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/dashboard/create_analysis.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/dashboard/retail_trades.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/dashboard/retail_trades.html" afterDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="HTML File" />
+        <option value="Python Script" />
+      </list>
+    </option>
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="MarkdownSettingsMigration">
+    <option name="stateVersion" value="1" />
+  </component>
+  <component name="ProjectId" id="2MiVoIqZUakTfMXlEMdtBwxdSOL" />
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;DefaultHtmlFileTemplate&quot;: &quot;HTML File&quot;,
+    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;last_opened_file_path&quot;: &quot;C:/Users/dell/Documents/WhalesStreet/Project TradeLaa/tradelaa&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;com.jetbrains.python.configuration.PyActiveSdkModuleConfigurable&quot;
+  }
+}</component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="408eb77d-e234-4528-89fc-80489c32ddd9" name="Changes" comment="" />
+      <created>1678250562372</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1678250562372</updated>
+    </task>
+    <servers />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
+  </component>
+</project>

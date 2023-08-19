@@ -2,6 +2,10 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
+<<<<<<< HEAD
+=======
+      <module fileurl="file://$PROJECT_DIR$/../connecttraders/.idea/connect_traders.iml" filepath="$PROJECT_DIR$/../connecttraders/.idea/connect_traders.iml" />
+>>>>>>> 321c1f6b1e64c59e1475369c349fa87bbb39412e
       <module fileurl="file://$PROJECT_DIR$/.idea/tradelaa.iml" filepath="$PROJECT_DIR$/.idea/tradelaa.iml" />
     </modules>
   </component>

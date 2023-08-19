@@ -1,0 +1,177 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en-US" dir="ltr">
+
+<meta http-equiv="content-type" content="text/html;charset=utf-8" /><!-- /Added by HTTrack -->
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>WhaleStreet</title>
+    {% include 'dashboard/common_css.html' %}
+    {% block common_css %}
+    {% endblock %}
+</head>
+
+<body>
+    <!-- ===============================================-->
+    <!--    Main Content-->
+    <!-- ===============================================-->
+    <main class="main" id="top">
+        <div class="container-fluid px-0" data-layout="container">
+            {% include 'dashboard/common_navbar.html' %}
+            {% block common_navbar %}
+            {% endblock %}
+
+            <div class="content">
+
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="card mb-3">
+                            <div class="card-body">
+                                <div class="row align-items-center g-3 text-center text-xxl-start">
+                                    <div class="col-12 col-xxl-auto">
+                                        <div class="avatar avatar-5xl"><img class="rounded-circle"
+                                                src="{% static 'assets/img/genericprofile.png' %}" alt=""></div>
+                                    </div>
+                                    <div class="col-12 col-sm-auto flex-1">
+                                        <h3 class="fw-bolder mb-2">{{data.name}}</h3>
+                                        <p class="mb-0">{{data.id}}</p>
+                                        <!-- <a class="fw-bold" href="#!">Blue Beetles</a> -->
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="card mb-3">
+                            <div class="card-body">
+                                <div class="d-flex align-items-center mb-5">
+                                    <h3>About</h3>
+                                </div>
+                                <div class="mb-4">
+                                    <div class="d-flex align-items-center mb-1"><span class="me-2 uil uil-envelope-alt">
+                                        </span>
+                                        <h5 class="text-1000 mb-0">Email: &nbsp; </h5>
+                                        <a href="mailto:shatinon@jeemail.com:">{{data.email_id}}</a>
+                                    </div>
+
+                                </div>
+                                <div class="mb-4">
+                                    <div class="d-flex align-items-center mb-1"><span class="me-2 uil uil-phone">
+                                        </span>
+                                        <h5 class="text-1000 mb-0">Phone: &nbsp;</h5>
+                                        <a href="tel:+1234567890">{{data.mobile_number}}</a>
+                                    </div>
+                                </div>
+
+                                <div class="mb-4">
+                                    <div class="d-flex align-items-center mb-1"><span
+                                            class="me-2 uil uil-dollar-alt"></span>
+                                        <h5 class="text-1000 mb-0 ">Total Capital &nbsp;</h5>
+                                        <p class="mb-0 text-800 text-success">$12000 </p>
+                                    </div>
+
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-md-6">
+                        <div class="card mb-3">
+                            <div class="card-body">
+                                <div class="row align-items-center g-3 text-center text-xxl-start">
+                                    <div class="col-12 col-xxl-auto">
+                                        <div class="social-media m-2">
+                                            <i class="fs-5 fab fa-facebook"></i>
+                                            <i class="fs-5 fab fa-whatsapp"></i>
+                                            <i class="fs-5 fab fa-instagram"></i>
+                                        </div>
+                                        <div class="m-2 d-flex justify-content-center align-items-center">
+                                            <i class="fs-2 fas fa-link"></i>
+                                            <input type="text" class="form-control w-50 mx-2" value="https://www.whalestreet.in" disabled>
+                                        </div>
+                                        <div class="fw-100">
+                                            <span class="fw-bold">Share affiliate link</span>
+                                        </div>
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+
+                {% include 'dashboard/common_footer.html' %}
+                {% block footer %}
+                {% endblock %}
+            </div>
+        </div>
+        <script>
+            var navbarTopShape = localStorage.getItem('phoenixNavbarTopShape');
+            var navbarPosition = localStorage.getItem('phoenixNavbarPosition');
+            var body = document.querySelector('body');
+            var navbarDefault = document.querySelector('#navbarDefault');
+            var navbarTopNew = document.querySelector('#navbarTopNew');
+            var navbarSlim = document.querySelector('#navbarSlim');
+            var navbarTopSlimNew = document.querySelector('#navbarTopSlimNew');
+
+            var documentElement = document.documentElement;
+            var navbarVertical = document.querySelector('.navbar-vertical');
+
+            if (navbarTopShape === 'slim' && navbarPosition === 'vertical') {
+                navbarDefault.remove();
+                navbarTopNew.remove();
+                navbarTopSlimNew.remove();
+                navbarSlim.style.display = 'block';
+                navbarVertical.style.display = 'inline-block';
+                body.classList.add('nav-slim');
+            } else if (navbarTopShape === 'slim' && navbarPosition === 'horizontal') {
+                navbarDefault.remove();
+                navbarVertical.remove();
+                navbarTopNew.remove();
+                navbarSlim.remove();
+                navbarTopSlimNew.removeAttribute('style');
+                body.classList.add('nav-slim');
+            } else if (navbarTopShape === 'default' && navbarPosition === 'horizontal') {
+                navbarDefault.remove();
+                navbarSlim.remove();
+                navbarVertical.remove();
+                navbarTopSlimNew.remove();
+                navbarTopNew.removeAttribute('style');
+                documentElement.classList.add('navbar-horizontal')
+
+            } else {
+                body.classList.remove('nav-slim');
+                navbarSlim.remove();
+                navbarTopNew.remove();
+                navbarTopSlimNew.remove();
+                navbarDefault.removeAttribute('style');
+                navbarVertical.removeAttribute('style');
+            }
+
+            var navbarTopStyle = localStorage.getItem('phoenixNavbarTopStyle');
+            var navbarTop = document.querySelector('.navbar-top');
+            if (navbarTopStyle === 'darker') {
+                navbarTop.classList.add('navbar-darker');
+            }
+
+            var navbarVerticalStyle = localStorage.getItem('phoenixNavbarVerticalStyle');
+            var navbarVertical = document.querySelector('.navbar-vertical');
+            if (navbarVerticalStyle === 'darker') {
+                navbarVertical.classList.add('navbar-darker');
+            }
+        </script>
+    </main>
+    <!-- ===============================================-->
+    <!--    End of Main Content-->
+    <!-- ===============================================-->
+
+    {% include 'dashboard/common_js.html' %}
+    {% block common_js %}
+    {% endblock %}
+</body>
+
+</html>
