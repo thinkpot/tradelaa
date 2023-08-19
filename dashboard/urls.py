@@ -21,6 +21,7 @@ urlpatterns = [
     #API
     # path(r'create-trade-form/<str:pk>/', CreateTradeFormViewSet.as_view({'post': 'create', 'patch': 'update', 'put': 'update'}), name='create-trade-form'),
     path(r'get-ticker-name/', TickerNameViewSet.as_view({'get': 'list'}), name='get-tickers'),
-    path(r'get-trades/', TradesListAPI.as_view({'get': 'list'}), name='get-trades')
+    path(r'get-trades/', TradesListAPI.as_view({'get': 'list'}), name='get-trades'),
+    path(r'execute-fyers-trade/', ExecuteTrade.as_view(), name='execute-fyers-trade')
 
 ] + router.urls

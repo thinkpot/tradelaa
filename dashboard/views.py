@@ -14,6 +14,9 @@ from django.shortcuts import redirect
 from django.urls import reverse_lazy
 from .helpers import get_fyers_profile, dashboard_decider
 from accounts.models import *
+from rest_framework.views import APIView
+from accounts.models import OwnBrokersCredentials
+from fyers_api import fyersModel
 
 
 class DashboardViewSet(TemplateView):
@@ -215,3 +218,17 @@ class UserTradeViewSet(ModelViewSet):
         serializer.is_valid(raise_exception=True)
         self.perform_create(serializer)
         return JsonResponse({"type": "success", "detail": serializer.data}, status=status.HTTP_201_CREATED)
+
+
+class ExecuteTrade(APIView):
+    permission_classes = [IsAuthenticated]
+
+    def post(self, request, *args, **kwargs):
+        api_key = OwnBrokersCredentials.objects.filter(broker__short_title='fyers').first()
+        fyers = fyersModel.FyersModel(client_id=api_key.api_key, token=request.COOKIES.get('access_token'))
+
+        data = self.request.data
+        response = fyers.place_order(data=data)
+        print(response)
+
+        return JsonResponse({'response': response})

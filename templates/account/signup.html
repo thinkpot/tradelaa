@@ -15,7 +15,7 @@
   {% endblock %}
 
   <style>
-    .errorlist{
+    .errorlist {
       list-style: none;
       margin: 0 0 20px 0;
       padding: 0;
@@ -44,37 +44,36 @@
               <div class="text-center mb-7">
                 <h3 class="text-1000">Sign Up</h3>
                 <p class="text-700">Get access to your account</p>
-              </div><button class="btn btn-phoenix-secondary w-100 mb-3"><span
-                  class="fab fa-google text-danger me-2 fs--1"></span>Sign in with google</button><button
-                class="btn btn-phoenix-secondary w-100"><span
-                  class="fab fa-facebook text-primary me-2 fs--1"></span>Sign
-                in with facebook</button>
+              </div>
+              <!-- <button class="btn btn-phoenix-secondary w-100 mb-3"> <span class="fab fa-google text-danger me-2 fs--1"></span>Sign in with google</button>
+              <button class="btn btn-phoenix-secondary w-100"><span class="fab fa-facebook text-primary me-2 fs--1"></span>Sign in with facebook</button> -->
               <div class="position-relative">
                 <hr class="bg-200 mt-5 mb-4" />
-                <div class="divider-content-center">or use email</div>
+                <div class="divider-content-center">use email</div>
               </div>
-              
+
               <div>
                 {% for f in form %}
                 <div class="mb-3 text-start">
                   <div>{{f.label}}</div>
                   <div class="form-icon-container">{{f}}</div>
                 </div>
-                 <div style="color:red; list-style: none;">
+                <div style="color:red; list-style: none;">
                   {{f.errors}}
                 </div>
                 {% endfor %}
               </div>
-              
+
               <button class="btn btn-primary w-100 mb-3" type="submit">Sign Up</button>
 
-              <div class="text-center"><a class="fs--1 fw-bold" href="{% url 'accounts:account_login' %}">Already have a account? Login here</a></div>
-              
+              <div class="text-center"><a class="fs--1 fw-bold" href="{% url 'accounts:account_login' %}">Already have a
+                  account? Login here</a></div>
+
             </div>
           </div>
         </div>
       </div>
-      
+
       <script>
         var navbarTopShape = localStorage.getItem('phoenixNavbarTopShape');
         var navbarPosition = localStorage.getItem('phoenixNavbarPosition');
