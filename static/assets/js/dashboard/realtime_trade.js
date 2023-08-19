@@ -25,8 +25,8 @@ function WriteTradeFirebase() {
     var ticker_symbol = trade_elements_data['symbol']
 
     var today_date = new Date();
-    var today_date_str = today_date.getUTCFullYear() + "-" + today_date.getUTCMonth() + 1 + "-" + today_date.getUTCDate()
-
+    var today_date_str = today_date.getUTCFullYear() + "-" + (today_date.getUTCMonth() + 1) + "-" + today_date.getUTCDate()
+    console.log("Todat date ", today_date_str, today_date.getUTCMonth())
     firebase.database().ref('trades/' + today_date_str + "/" + ticker_symbol).set({
         EntryPrice: entry_price,
         TargetPrice: target_price,
@@ -42,7 +42,5 @@ function WriteTradeFirebase() {
 
 document.getElementById("create-trade-form-submit").addEventListener("click", function () {
     WriteTradeFirebase()
-
-})
-
-
+    console.log("Writing to firebase")
+}) 

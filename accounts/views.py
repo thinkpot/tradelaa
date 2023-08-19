@@ -25,20 +25,20 @@ class SuccessView(TemplateView):
 
 class SignupView(FormView):
     form_class = SignupForm
-    success_url = '/accounts/login/'
+    success_url = reverse_lazy('accounts:account_login')
     template_name = 'account/signup.html'
 
     def form_valid(self, form):
         if form.is_valid():
             form.save()
-            return redirect("/accounts/login/")
+            return redirect(reverse_lazy('accounts:account_login'))
         else:
             return JsonResponse({"type": "error"})
 
 
 class LoginView(FormView):
     form_class = LoginForm
-    success_url = reverse_lazy('dashboard')
+    success_url = reverse_lazy('dashboard:dashboard')
     template_name = 'account/login.html'
 
     def form_valid(self, form):
@@ -53,7 +53,11 @@ class LoginView(FormView):
         else:
             messages.add_message(self.request, messages.INFO, 'Wrong credentials\
                                 please try again')
-            return HttpResponseRedirect(reverse_lazy('login_view'))
+            return HttpResponseRedirect(reverse_lazy('accounts:account_login'))
+
+    def form_invalid(self, form):
+        # Form validation failed, you can add additional error handling here if needed
+        return super().form_invalid(form)
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data()

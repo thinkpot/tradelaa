@@ -16,9 +16,9 @@ class BrokerFunction {
         var response;
         $.ajax({
             type: "POST",
-            url: this.base_url+"orders",
+            url: this.base_url + "orders",
             data: {
-                "symbol": "NSE:"+symbol,
+                "symbol": "NSE:" + symbol,
                 "qty": quantity,
                 "type": 1,
                 "side": side,
@@ -31,26 +31,27 @@ class BrokerFunction {
                 "stopLoss": stoploss,
                 "takeProfit": target
             },
-            headers:{
-                "Authorizaiton":this.api_key+":"+getCookie('access_token'),
-                "Access-Control-Allow-Origin":"*",
-                "Access-Control-Allow-Credentials":"true",
-                "Access-Control-Allow-Methods":"GET,HEAD,OPTIONS,POST,PUT",
-                "Access-Control-Allow-Headers":"Access-Control-Allow-Headers, Origin,Accept, X-Requested-With, Content-Type, Access-Control-Request-Method, Access-Control-Request-Headers"
+            headers: {
+                "Authorizaiton": this.api_key + ":" + getCookie('access_token'),
             },
-            success:function(res){
+            xhrFields: {
+                withCredentials: true
+            },
+            success: function (res) {
                 console.log("Sending trade to Fyers")
                 response = res;
             }
         })
         return response;
     }
+
+    
 }
 
 let broker = getCookie('broker');
 let MainFyers;
-if(broker != null){
-    if (broker == 'fyers'){
+if (broker != null) {
+    if (broker == 'fyers') {
         let main_api_key = 'NV1BMN088J-100';
         let base_url = 'https://api.fyers.in/api/v2/';
         MainFyers = new BrokerFunction('fyers', main_api_key, base_url)
